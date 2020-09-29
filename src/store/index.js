@@ -1,8 +1,8 @@
-import { createStore, applyMiddleware, compose }  from 'redux'
-import thunk                                      from 'redux-thunk'
-import config                                     from '@/config'
-import { createBrowserHistory as createHistory }  from 'history'
-import { routerMiddleware }                       from 'react-router-redux'
+import { createStore, applyMiddleware, compose } from 'redux'
+import thunk from 'redux-thunk'
+import config from '@/config'
+import { createBrowserHistory as createHistory } from 'history'
+import { routerMiddleware } from 'react-router-redux'
 
 import reducer from './reducer'
 // import action from './action';

@@ -1,7 +1,7 @@
-import React                  from 'react'
-import { Layout, Row, Col }   from 'antd'
-import Header                 from '../layout/Header'
-import Footer                 from '../layout/Footer'
+import React from 'react'
+import { Layout, Row, Col } from 'antd'
+import Header from '../layout/Header'
+import Footer from '../layout/Footer'
 
 const BasePage = (props) => {
   return (

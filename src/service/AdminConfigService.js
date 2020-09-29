@@ -1,8 +1,7 @@
-import BaseService              from '../model/BaseService'
-import axios                    from 'axios'
-import BigNumber                from 'big-number'
-import {thousands}              from '@/util/help.js'
-
+import BaseService from '../model/BaseService'
+import axios from 'axios'
+import BigNumber from 'big-number'
+import {thousands} from '@/util/help.js'
 
 let API_URL = process.env.SERVER_URL
 const API = {

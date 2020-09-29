@@ -1,8 +1,8 @@
-import BaseService                          from '../../model/BaseService'
-import PocPoolService                       from '@/service/contracts/pocPoolService'
+import BaseService from '../../model/BaseService'
+import PocPoolService from '@/service/contracts/pocPoolService'
 import { thousands, weiToPOC, hideAddress } from '@/util/help.js'
-import _                                    from 'lodash'
-import arrayToTree                          from 'array-to-tree'
+import _  from 'lodash'
+import arrayToTree from 'array-to-tree'
 
 let refTree = []
 let refArrayTree = []
