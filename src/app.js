@@ -7,6 +7,7 @@ import { Router } from "react-router";
 import store from '@/store'
 import config from '@/config'
 import Helmet from 'react-helmet'
+
 import {getUserProfile, loginEzdefi} from './util/auth'
 import axios from './util/axios'
 import './boot'
@@ -25,47 +26,37 @@ const App = () => {
       </Helmet>
       <Switch id="ss-main">
         {_.map(config.router, (item, i) => {
+          console.log('item', item)
           const props = _.omit(item, ['page', 'path', 'type'])
-          const R = item.type || PrivateRoute
+          console.log('props', props)
+          // const R = PrivateRoute
+          // console.log('R',R)
           return (
-            <R path={item.path} auth={item.auth} key={i} exact component={item.page} {...props} />
+            // <R path={item.path} auth={item.auth} key={i} exact component={item.page} {...props} />
+            // <h1>alolo</h1>
+            <Route
+            path={item.path} auth={item.auth} key={i} exact component={item.page} {...props}
+          >
+            {/* {checkAuth()} */}
+          </Route>
           )
         })}
       </Switch>
-      {
-        !window.ethereum &&
-        <Redirect to='/login' />
-      }
     </div>
   )
 }
 
 function PrivateRoute({ children, auth, path, ...rest }) {
-  const checkAuth = () => {
-    var islogin = localStorage.getItem('jwt')
-    if (islogin && (path === '/login' || path === '/register/:refId?')) return <Redirect to={"/"}/>
-
-    if (islogin) {
-      return children
-    } else {
-      if (path === '/login' || path === '/register/:refId?') {
-        return children
-      } else {
-        return <Redirect to={"/login"}/>
-      }
-    }
-  }
-
   return (
     <Route
       {...rest}
     >
-      {checkAuth()}
+      {/* {checkAuth()} */}
     </Route>
   );
 }
 
-loginEzdefi()
+// loginEzdefi()
 const render = () => {
   ReactDOM.render(
     <Provider store={store}>
@@ -77,8 +68,5 @@ const render = () => {
   )
 }
 
-if (sessionStorage.getItem('api-token')) {
-  getUserProfile(render)
-} else {
-  render()
-}
+render()
+
