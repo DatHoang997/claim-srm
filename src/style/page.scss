@@ -1,0 +1,51 @@
+.hide {
+  display: none;
+}
+
+.hide-on-desktop {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+@media only screen and (min-width: 992px) {
+  .hide-on-lg {
+    display: none;
+  }
+
+  .desktop-padding {
+    padding-top: 35px
+  }
+}
+
+@media only screen and (max-width: 992px) {
+  .hide-under-lg {
+    display: none;
+  }
+
+  .main-content {
+    margin-top: 45px;
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  .hide-on-mobile {
+    display: none;
+  }
+
+  .padding {
+    &-xs {
+      padding: 5px;
+    }
+  }
+
+  .main-content {
+    margin-top: 55px;
+  }
+
+  .hide-on-desktop {
+    display: block;
+    width: auto;
+    height: auto;
+  }
+}

@@ -1,0 +1,157 @@
+@import "color";
+
+.ant-layout {
+  background: $background_color;
+
+  &-content {
+    min-height: 97vh;
+    margin: 0 100px;
+  }
+}
+
+.ant-picker-input>input {
+  padding-left: 4px;
+}
+
+.ant-picker-focused {
+  border: 1px solid $primary_green !important;
+  box-shadow: 0px 0px 2px $primary_green;
+}
+
+.ant-date-picker {
+  width: 100%;
+  padding: 4px 11px;
+  background: #E5E5E5;
+  border: 1px solid #BEBEBE;
+  border-radius: 7px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+
+  & input::placeholder {
+    color: $gray;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 11px;
+  }
+
+  &:hover {
+    border: 1px solid $primary_green;
+  }
+
+  &:active {
+    border: 1px solid $primary_green;
+  }
+
+  &:focus {
+    border: 1px solid $primary_green;
+    box-shadow: 0px 0px 2px $primary_green;
+  }
+}
+
+.ant-tabs-nav .ant-tabs-tab:hover {
+  color: $primary_green
+}
+
+.ant-tabs-tab-active {
+  color: $primary_green;
+}
+
+.ant-tabs-tab-btn {
+  color: $primary_green;
+}
+
+.ant-tabs-nav .ant-tabs-tab:active {
+  color: $primary_green
+}
+
+.anticon-calendar {
+  font-size: 12px;
+  color: $gray;
+  padding-right: 4px;
+}
+
+.anticon-down {
+  font-size: 10px;
+  color: $gray
+}
+
+.ant-pagination-item {
+  margin-right: 5px;
+}
+
+.ant-picker-input {
+  &>input {
+    font-size: 16px;
+
+    &::placeholder {
+      font-size: 14px;
+    }
+  }
+}
+
+.ant-select-selection-item {
+  font-size: 16px;
+}
+
+@media only screen and (max-width: 576px) {
+  .ant-date-picker {
+    font-size: 11px;
+    border-radius: 3px;
+    height: 22px;
+    padding: 1px;
+
+    &:hover {
+      border: 1px solid $primary_green;
+    }
+
+    &:active {
+      border: 1px solid $primary_green;
+    }
+
+    &:focus {
+      border: 1px solid $primary_green;
+      box-shadow: 0px 0px 2px $primary_green;
+    }
+  }
+
+  .ant-layout-content {
+    min-height: 89vh;
+    margin: 0 auto;
+    width: 94%;
+  }
+
+  .ant-picker-input {
+    height: 22px;
+
+    &>input {
+      font-size: 12px;
+      font-weight: normal;
+      padding-top: 2px;
+
+      &::placeholder {
+        padding-top: 2px;
+        font-size: 10px;
+      }
+    }
+  }
+
+  .ant-select-selection-item {
+    font-size: 11px;
+  }
+}
+
+
+@media only screen and (max-width: 1200px) {
+  .ant-layout-content {
+    min-height: 97vh;
+    margin: 0 auto;
+    width: 90%;
+  }
+}
+
+.ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: $primary_green;
+}

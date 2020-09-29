@@ -1,0 +1,92 @@
+@import "./color";
+
+
+.rst__lineHalfHorizontalRight::before,
+.rst__lineFullVertical::after,
+.rst__lineHalfVerticalTop::after,
+.rst__lineHalfVerticalBottom::after {
+  background-color: $gray;
+}
+
+.ReactVirtualized__Grid {
+  overflow-x: hidden !important;
+}
+
+//.rst__nodeContent {
+//  min-width: 130px;
+//}
+
+.rst__collapseButton,
+.rst__expandButton {
+  width: 10px;
+  height: 10px;
+  background-size: cover;
+
+  &:hover:not(:active),
+  &:hover:not(:active) {
+    width: 10px;
+    height: 10px;
+  }
+}
+
+.rst__rowContentsDragDisabled {
+  //width: 100%;
+  box-shadow: none;
+  -webkit-box-shadow: none;
+  min-width: 130px;
+  height: 100%;
+  padding: 0;
+  border: none;
+}
+
+.rst__rowLabel {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+
+.rst__rowTitle,
+.rst__rowTitleWithSubtitle {
+  display: inline-block;
+  height: 50%;
+  width: 100%;
+  background-color: $light_gray;
+  color: $gray;
+  font-family: Avenir;
+  text-align: center;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 2;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.rst__rowSubtitle {
+  background-color: $primary_green;
+  font-family: Avenir;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 14px;
+  display: inline-block;
+  text-align: center;
+  height: 50%;
+  width: 100%;
+  color: white;
+  line-height: 1.5;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.rst__toolbarButton {
+  width: 100%;
+  height: 100%;
+}
+
+.rst__rowToolbar {
+  position: absolute;
+  width: 95%;
+  height: 100%;
+  right: 0;
+}
