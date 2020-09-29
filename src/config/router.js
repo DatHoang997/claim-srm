@@ -13,7 +13,7 @@ export default [
     page: NotFound
   },
   {
-    path: '/claim-srm',
+    path: '/',
     page: ClaimSRM,
   },
   {

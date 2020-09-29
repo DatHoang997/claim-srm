@@ -46,16 +46,6 @@ const App = () => {
   )
 }
 
-function PrivateRoute({ children, auth, path, ...rest }) {
-  return (
-    <Route
-      {...rest}
-    >
-      {/* {checkAuth()} */}
-    </Route>
-  );
-}
-
 // loginEzdefi()
 const render = () => {
   ReactDOM.render(
