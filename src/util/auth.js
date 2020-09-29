@@ -1,10 +1,10 @@
 import store from '@/store'
 
-import {USER_ROLE}   from '@/constant'
+import {USER_ROLE} from '@/constant'
 import {api_request} from './'
-import UserService   from '@/service/UserService'
-import {CONTRACTS}   from '@/constant'
-import Web3          from "web3";
+import UserService from '@/service/UserService'
+import {CONTRACTS} from '@/constant'
+import Web3 from "web3";
 
 
 export const setupWeb3 = async (callback = null) => {
