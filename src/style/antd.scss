@@ -4,7 +4,7 @@
   background: $background_color;
 
   &-content {
-    min-height: 97vh;
+    min-height: 100%;
     margin: 0 100px;
   }
 }
@@ -146,7 +146,7 @@
 
 @media only screen and (max-width: 1200px) {
   .ant-layout-content {
-    min-height: 97vh;
+    min-height: 100%;
     margin: 0 auto;
     width: 90%;
   }

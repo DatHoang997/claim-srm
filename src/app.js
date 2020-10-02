@@ -26,19 +26,12 @@ const App = () => {
       </Helmet>
       <Switch id="ss-main">
         {_.map(config.router, (item, i) => {
-          console.log('item', item)
           const props = _.omit(item, ['page', 'path', 'type'])
-          console.log('props', props)
-          // const R = PrivateRoute
-          // console.log('R',R)
           return (
-            // <R path={item.path} auth={item.auth} key={i} exact component={item.page} {...props} />
-            // <h1>alolo</h1>
             <Route
-            path={item.path} auth={item.auth} key={i} exact component={item.page} {...props}
-          >
-            {/* {checkAuth()} */}
-          </Route>
+              path={item.path} auth={item.auth} key={i} exact component={item.page} {...props}
+            >
+            </Route>
           )
         })}
       </Switch>

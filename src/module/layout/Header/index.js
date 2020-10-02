@@ -8,7 +8,6 @@ const HeaderComponent = () => {
   return (
     <header>
       <Row>
-        <h1>header</h1>
       </Row>
     </header>
   )

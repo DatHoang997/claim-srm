@@ -6,31 +6,30 @@ import {CONTRACTS} from '@/constant'
 import Web3 from "web3";
 
 
-// export const setupWeb3 = async (callback = null) => {
-//   const userRedux      = store.getRedux('user')
-//   let isRequest        = false
-//   let isLoggedIn       = false
+export const setupWeb3 = async (callback = null) => {
+  const userRedux      = store.getRedux('user')
+  let isRequest        = false
+  let isLoggedIn       = false
 
-//   await window.web3.eth.getAccounts(async (err, accounts) => {
-//     if (err) return
-//     if (accounts.length > 0) {
-//       // detect account switch
-//       if (!isLoggedIn) {
-//         const web3 = new Web3(window.ethereum)
-//         store.dispatch(userRedux.actions.web3_update(web3))
-//         store.dispatch(userRedux.actions.wallet_update(accounts[0]))
-//         if (callback) await callback()
-//       }
-//     } else {
-//       if (!isRequest) {
-//         isRequest = true
-//         await window.ethereum.enable()
-//       }
-//       store.dispatch(userRedux.actions.loginMetamask_update(false))
-//     }
-//   })
-// }
-
+  await window.web3.eth.getAccounts(async (err, accounts) => {
+    if (err) return
+    if (accounts.length > 0) {
+      // detect account switch
+      if (!isLoggedIn) {
+        const web3 = new Web3(window.ethereum)
+        store.dispatch(userRedux.actions.web3_update(web3))
+        store.dispatch(userRedux.actions.wallet_update(accounts[0]))
+        if (callback) await callback()
+      }
+    } else {
+      if (!isRequest) {
+        isRequest = true
+        await window.ethereum.enable()
+      }
+      store.dispatch(userRedux.actions.loginMetamask_update(false))
+    }
+  })
+}
 
 // export const loginEzdefi = (callback) => {
 //   const userRedux      = store.getRedux('user')
@@ -44,7 +43,7 @@ import Web3 from "web3";
 //     PocPool: new web3.eth.Contract(CONTRACTS.PocPool.abi, CONTRACTS.PocPool.address, {gasPrice: '0'}),
 //     Citizen: new web3.eth.Contract(CONTRACTS.Citizen.abi, CONTRACTS.Citizen.address, {gasPrice: '0'})
 //   }
-//   //
+//
 //   store.dispatch(userRedux.actions.loginMetamask_update(true))
 //   store.dispatch(contractsRedux.actions.readWrite_update(contracts.ReadWrite))
 //   store.dispatch(contractsRedux.actions.pocToken_update(contracts.PocToken))

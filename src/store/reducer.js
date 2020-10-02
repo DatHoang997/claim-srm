@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
 import { routerReducer } from 'react-router-redux'
-import pocStats from './redux/pocStats'
+import claimZSRM from './redux/claimZSRM'
 
 const default_state = {
   init: false
@@ -16,5 +16,5 @@ const appReducer = (state = default_state, action) => {
 export default combineReducers({
   app: appReducer,
   router: routerReducer,
-  pocStats: pocStats.getReducer()
+  claimZSRM: claimZSRM.getReducer()
 })
