@@ -8,7 +8,9 @@ class claimZSRMRedux extends BaseRedux {
   defineDefaultState () {
     return {
       serverResponse: '',
-      signatureResponse: ''
+      signatureResponse: '',
+      fb_id: '',
+      ps_id: ''
     }
   }
 }
