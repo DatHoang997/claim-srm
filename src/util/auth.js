@@ -7,7 +7,7 @@ import Web3 from "web3";
 
 
 export const setupWeb3 = async (callback = null) => {
-  const userRedux      = store.getRedux('user')
+  const claimZSRMRedux      = store.getRedux('claimZSRM')
   let isRequest        = false
   let isLoggedIn       = false
 
@@ -16,17 +16,18 @@ export const setupWeb3 = async (callback = null) => {
     if (accounts.length > 0) {
       // detect account switch
       if (!isLoggedIn) {
+        console.log('accounts[0]', accounts[0])
         const web3 = new Web3(window.ethereum)
-        store.dispatch(userRedux.actions.web3_update(web3))
-        store.dispatch(userRedux.actions.wallet_update(accounts[0]))
+        store.dispatch(claimZSRMRedux.actions.web3_update(web3))
+        store.dispatch(claimZSRMRedux.actions.wallet_update(accounts[0]))
         if (callback) await callback()
+        return accounts[0]
       }
     } else {
       if (!isRequest) {
         isRequest = true
         await window.ethereum.enable()
       }
-      store.dispatch(userRedux.actions.loginMetamask_update(false))
     }
   })
 }

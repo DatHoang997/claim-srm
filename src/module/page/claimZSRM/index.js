@@ -7,13 +7,15 @@ import { LoadingOutlined } from '@ant-design/icons'
 import 'antd/dist/antd.css';
 import './style.scss'
 import { sortedLastIndex } from 'lodash'
+import {setupWeb3} from "../../../util/auth";
 
 const stats = () => {
   const dispatch = useDispatch(),
         serverResponse = useSelector(state => state.claimZSRM.serverResponse),
         signatureResponse = useSelector(state => state.claimZSRM.signatureResponse),
+        wallet = useSelector(state => state.claimZSRM.wallet),
         [srmAddress, setSrmAddress] = useState(''),
-        [wallet, setWallet] = useState(''),
+        // [wallet, setWallet] = useState(''),
         [fbId, setFbId] = useState(null),
         [psId, setPsId] = useState(null),
         [err, setErr] = useState(''),
@@ -27,13 +29,17 @@ const stats = () => {
 
   useEffect(() => {
     myVar = setInterval(go, 1000)
-    myWallet = setInterval(getWallet, 1000)
-  }, [])
+    if (window.ethereum) {
+      setupWeb3()
+    }
+  }, [wallet])
+
+  console.log('wallet', wallet)
 
   const go = () => {
     getCookie('ps_id')
     getCookie('fb_id')
-    if (alpha && beta) {
+    if (alpha) {
       setDisableSubmit(false)
       clearInterval(myVar)
     }
@@ -41,7 +47,7 @@ const stats = () => {
 
   useEffect(() => {
     if (serverResponse) {
-      setDisableSubmit(false)
+      // setDisableSubmit(false)
     }
     if (serverResponse.status == 1) {
       claimZsrmService.response(psId)
@@ -53,13 +59,13 @@ const stats = () => {
 
   useEffect(() => {
     if (signatureResponse) {
-      setDisableSubmit(false)
+      // setDisableSubmit(false)
     }
   }, [signatureResponse])
 
   const claimZSRM = async() => {
     setDisableSubmit(true)
-    let response = await claimZsrmService.claimZSRM(wallet, fbId, psId);
+    let response = await claimZsrmService.claimZSRM(fbId, psId);
     if (response == false) {
       setErr('You must choose Nexty network to claim bounty')
     }
@@ -80,20 +86,9 @@ const stats = () => {
     }
   }
 
-  const getWallet = async() => {
-    let acc = await window.ethereum.selectedAddress
-    console.log(acc)
-    if (acc) {
-      clearInterval(myWallet)
-      setWallet(acc)
-    } else {
-      setErr('Getting your wallet')
-    }
-  }
-
   return (
     <StandardPage>
-        { wallet ?
+        {/* { wallet ? */}
         <Row>
             <Col span={24} className="center margin-top-md">
               <p>{fbId}</p>
@@ -106,11 +101,11 @@ const stats = () => {
               <p className="center text-red">{err}</p>
             </Col>
           </Row>
-        :
+        {/* :
           <Col span={24} className="center margin-top-md">
-            <h1>{err}</h1>
+            <h1>refresh to get bounty</h1>
           </Col>
-        }
+        } */}
     </StandardPage>
   )
 }

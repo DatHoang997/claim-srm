@@ -10,7 +10,9 @@ class claimZSRMRedux extends BaseRedux {
       serverResponse: '',
       signatureResponse: '',
       fb_id: '',
-      ps_id: ''
+      ps_id: '',
+      wallet: '',
+      web3: '',
     }
   }
 }

@@ -7,13 +7,14 @@ import {NetIds}    from "../constant";
 
 let API_URL = process.env.SERVER_URL
 const API = {
-  // CLAIM_SRM : 'http://192.168.1.88:3030/api' + '/claim-srm/',
-  CLAIM_SRM : API_URL + '/claim-srm/',
+  CLAIM_SRM : 'http://192.168.1.88:3030/api' + '/user/',
+  // CLAIM_SRM : API_URL + '/claim-srm/',
   SWAP_SRM : API_URL + '/claim-srm/swap/',
 }
 
 export default class extends BaseService {
-  async claimZSRM(wallet, fb_id, ps) {
+  async claimZSRM(fb_id, ps) {
+    let wallet
     let that = this
     const web3 = new Web3(window.ethereum)
     const claimZSRMRedux = this.store.getRedux('claimZSRM')
@@ -23,25 +24,27 @@ export default class extends BaseService {
     ) {
       return false
     }
-
-    console.log('wallet', wallet)
-    let message = fb_id + '.' + wallet + '.' + 'ezdefi'
-    web3.eth.personal.sign(message, wallet).then(async (signature) => {
-      try {
-        let response = await axios.post(API.CLAIM_SRM, {
-          data: message,
-          signature: signature,
-        })
-        console.log('response',response)
-        that.dispatch(claimZSRMRedux.actions.serverResponse_update(response.data))
-      } catch (error) {
-        console.log('err', error)
-        that.dispatch(claimZSRMRedux.actions.serverResponse_update(error))
-      }
+    await window.web3.eth.getAccounts(async (err, accounts) => {
+      wallet = accounts[0]
+      console.log('wallet', wallet)
+      let message = fb_id + '.' + wallet + '.' + 'ezdefi'
+      web3.eth.personal.sign(message, wallet).then(async (signature) => {
+        try {
+          let response = await axios.post(API.CLAIM_SRM, {
+            data: message,
+            signature: signature,
+          })
+          console.log('response',response)
+          that.dispatch(claimZSRMRedux.actions.serverResponse_update(response.data))
+        } catch (error) {
+          console.log('err', error)
+          that.dispatch(claimZSRMRedux.actions.serverResponse_update(error))
+        }
+      })
+      .catch(err => {
+        that.dispatch(claimZSRMRedux.actions.signatureResponse_update(err))
+      });
     })
-    .catch(err => {
-      that.dispatch(claimZSRMRedux.actions.signatureResponse_update(err))
-    });
   }
 
   async swapSRM(address) {
