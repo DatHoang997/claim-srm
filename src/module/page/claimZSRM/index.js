@@ -21,9 +21,11 @@ const stats = () => {
 
   const claimZsrmService = new ClaimZsrmService()
   let myVar
+  let alpha = ''
+  let beta = ''
+
   useEffect(() => {
     myVar = setInterval(go, 3000);
-    // getCookie('ps_id')
     window.web3.eth.getAccounts(async (err, wallet) => {
       setWallet(wallet[0])
     })
@@ -32,7 +34,7 @@ const stats = () => {
   const go = () => {
     getCookie('ps_id')
     getCookie('fb_id')
-    if (!fbId && !psId) {
+    if (alpha && beta) {
       setDisableSubmit(false)
       clearInterval(myVar)
     }
@@ -67,18 +69,15 @@ const stats = () => {
     var cookieArr = document.cookie.split(";");
     for (var i = 0; i < cookieArr.length; i++) {
       var cookiePair = cookieArr[i].split("=");
-      if (name == 'fb_id') {
-        if (name == cookiePair[0].trim()) {
-          setFbId(decodeURIComponent(cookiePair[1]))
-        }
+      if (name == 'fb_id' && name == cookiePair[0].trim()) {
+        setFbId(decodeURIComponent(cookiePair[1]))
+        alpha = decodeURIComponent(cookiePair[1])
       }
-      if (name == 'ps_id') {
-        if (name == cookiePair[0].trim()) {
-          setPsId(decodeURIComponent(cookiePair[1]))
-        }
+      if (name == 'ps_id' && name == cookiePair[0].trim()) {
+        setPsId(decodeURIComponent(cookiePair[1]))
+        beta = decodeURIComponent(cookiePair[1])
       }
     }
-    return null;
   }
 
   return (
