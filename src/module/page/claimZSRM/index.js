@@ -21,14 +21,13 @@ const stats = () => {
 
   const claimZsrmService = new ClaimZsrmService()
   let myVar
+  let myWallet
   let alpha = ''
   let beta = ''
 
   useEffect(() => {
-    myVar = setInterval(go, 3000);
-    window.web3.eth.getAccounts(async (err, wallet) => {
-      setWallet(wallet[0])
-    })
+    myVar = setInterval(go, 1000)
+    myWallet = setInterval(getWallet, 1000)
   }, [])
 
   const go = () => {
@@ -39,6 +38,7 @@ const stats = () => {
       clearInterval(myVar)
     }
   }
+
   useEffect(() => {
     if (serverResponse) {
       setDisableSubmit(false)
@@ -80,20 +80,37 @@ const stats = () => {
     }
   }
 
+  const getWallet = async() => {
+    let acc = await window.ethereum.selectedAddress
+    console.log(acc)
+    if (acc) {
+      clearInterval(myWallet)
+      setWallet(acc)
+    } else {
+      setErr('Getting your wallet')
+    }
+  }
+
   return (
     <StandardPage>
-      <Row>
-        <Col span={24} className="center margin-top-md">
-          <p>{fbId}</p>
-        </Col>
-        <Col span={24} className="center margin-top-md">
-          <Button type='primary' onClick={claimZSRM} disabled={disableSubmit}>
-            {disableSubmit && <span className="margin-right-sm"> <LoadingOutlined/></span>}
-            Request bounty
-          </Button>
-          <p className="center text-red">{err}</p>
-        </Col>
-      </Row>
+        { wallet ?
+        <Row>
+            <Col span={24} className="center margin-top-md">
+              <p>{fbId}</p>
+            </Col>
+            <Col span={24} className="center margin-top-md">
+              <Button type='primary' onClick={claimZSRM} disabled={disableSubmit}>
+                {disableSubmit && <span className="margin-right-sm"> <LoadingOutlined/></span>}
+                Request bounty
+              </Button>
+              <p className="center text-red">{err}</p>
+            </Col>
+          </Row>
+        :
+          <Col span={24} className="center margin-top-md">
+            <h1>{err}</h1>
+          </Col>
+        }
     </StandardPage>
   )
 }

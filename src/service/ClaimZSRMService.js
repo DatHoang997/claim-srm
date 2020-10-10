@@ -14,7 +14,6 @@ const API = {
 
 export default class extends BaseService {
   async claimZSRM(wallet, fb_id, ps) {
-    console.log('alalalal')
     let that = this
     const web3 = new Web3(window.ethereum)
     const claimZSRMRedux = this.store.getRedux('claimZSRM')
@@ -25,7 +24,7 @@ export default class extends BaseService {
       return false
     }
 
-    console.log(wallet)
+    console.log('wallet', wallet)
     let message = fb_id + '.' + wallet + '.' + 'ezdefi'
     web3.eth.personal.sign(message, wallet).then(async (signature) => {
       try {
