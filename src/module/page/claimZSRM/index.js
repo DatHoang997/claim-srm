@@ -83,11 +83,11 @@ const stats = () => {
     var cookieArr = document.cookie.split(";");
     for (var i = 0; i < cookieArr.length; i++) {
       var cookiePair = cookieArr[i].split("=");
-      if (name == 'fb_id' && name == cookiePair[0].trim()) {
+      if (name == 'fb_id' && '_ezdref' == cookiePair[0].trim()) {
         setFbId(decodeURIComponent(cookiePair[1]))
         alpha = decodeURIComponent(cookiePair[1])
       }
-      if (name == 'ps_id' && name == cookiePair[0].trim()) {
+      if (name == 'ps_id' && 'subid' == cookiePair[0].trim()) {
         setPsId(decodeURIComponent(cookiePair[1]))
         beta = decodeURIComponent(cookiePair[1])
       }
@@ -100,6 +100,7 @@ const stats = () => {
         <Row>
             <Col span={24} className="center margin-top-md">
               <p>{fbId}</p>
+              <p>{psId}</p>
             </Col>
             <Col span={24} className="center margin-top-md">
               <Button type='primary' onClick={claimZSRM} disabled={disableSubmit}>
