@@ -91,8 +91,7 @@ module.exports = merge(common, {
         SERVER_URL: JSON.stringify('http://localhost:3030/api'),
         USDT_CONTRACT_ADDRESS: JSON.stringify('TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t'),
         USDT_POOL: JSON.stringify('TZJQ3dz8ndvCu3CELGRBhAkZCe8uG1EJPL'),
-        POC_POOL: JSON.stringify('0x6dd6A324909814DD62C4d26E66185469D95C449D'),
-        TEST: JSON.stringify(true)
+        POC_POOL: JSON.stringify('0x6dd6A324909814DD62C4d26E66185469D95C449D')
       }
     }),
     new webpack.optimize.OccurrenceOrderPlugin(),
