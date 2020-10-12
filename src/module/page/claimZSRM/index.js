@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from "react-redux"
 import StandardPage from '../StandardPage'
-import { Input, Row, Col, Button } from 'antd'
+import { Input, Row, Col, Button, message } from 'antd'
 import ClaimZsrmService from '@/service/ClaimZSRMService'
 import { LoadingOutlined } from '@ant-design/icons'
 import 'antd/dist/antd.css';
@@ -15,11 +15,11 @@ const stats = () => {
         signatureResponse = useSelector(state => state.claimZSRM.signatureResponse),
         wallet = useSelector(state => state.claimZSRM.wallet),
         [srmAddress, setSrmAddress] = useState(''),
-        // [wallet, setWallet] = useState(''),
         [fbId, setFbId] = useState(null),
         [psId, setPsId] = useState(null),
         [err, setErr] = useState(''),
-        [disableSubmit, setDisableSubmit] = useState(true)
+        [disableSubmit, setDisableSubmit] = useState(true),
+        [check, setCheck] = useState('')
 
   const claimZsrmService = new ClaimZsrmService()
   let myVar
@@ -36,21 +36,29 @@ const stats = () => {
 
   console.log('wallet', wallet)
 
-  const go = () => {
+  const go = async() => {
     getCookie('ps_id')
     getCookie('fb_id')
     if (alpha) {
-      setDisableSubmit(false)
+      console.log('innnnnnnnnnnnn')
       clearInterval(myVar)
+      setDisableSubmit(false)
+      // let data = await claimZsrmService.getUerData(alpha) //disable when testing
+      // console.log('data',data) //disable when testing
+      // if (data.data.data == true) { //disable when testing
+      //   setCheck(data.data.message) //disable when testing
+      // } //disable when testing
+      // setDisableSubmit(data.data.data) //disable when testing
     }
   }
-
+  console.log(check)
   useEffect(() => {
     if (serverResponse) {
-      // setDisableSubmit(false)
+      setDisableSubmit(false)
     }
     if (serverResponse.status == 1) {
       claimZsrmService.response(psId)
+      message.success('Claim Success')
     }
     if (serverResponse.message === "already claimed") {
       setErr("already claimed")
@@ -59,7 +67,7 @@ const stats = () => {
 
   useEffect(() => {
     if (signatureResponse) {
-      // setDisableSubmit(false)
+      setDisableSubmit(false)
     }
   }, [signatureResponse])
 
@@ -88,7 +96,7 @@ const stats = () => {
 
   return (
     <StandardPage>
-        {/* { wallet ? */}
+        { (check == '') ?
         <Row>
             <Col span={24} className="center margin-top-md">
               <p>{fbId}</p>
@@ -101,11 +109,11 @@ const stats = () => {
               <p className="center text-red">{err}</p>
             </Col>
           </Row>
-        {/* :
+        :
           <Col span={24} className="center margin-top-md">
-            <h1>refresh to get bounty</h1>
+            <h1>{check}</h1>
           </Col>
-        } */}
+        }
     </StandardPage>
   )
 }

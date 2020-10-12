@@ -7,14 +7,14 @@ import {NetIds}    from "../constant";
 
 let API_URL = process.env.SERVER_URL
 const API = {
-  CLAIM_SRM : 'http://192.168.1.88:3030/api' + '/user/',
-  // CLAIM_SRM : API_URL + '/claim-srm/',
-  SWAP_SRM : API_URL + '/claim-srm/swap/',
+  // CLAIM_SRM : 'http://192.168.1.88:3030/api' + '/user/',
+  CLAIM_SRM : API_URL + '/user/',
+  SWAP_SRM : API_URL + '/user/swap/',
+  GET_USER : API_URL + '/user/get_user/'
 }
 
 export default class extends BaseService {
   async claimZSRM(fb_id, ps) {
-    let wallet
     let that = this
     const web3 = new Web3(window.ethereum)
     const claimZSRMRedux = this.store.getRedux('claimZSRM')
@@ -25,7 +25,10 @@ export default class extends BaseService {
       return false
     }
     await window.web3.eth.getAccounts(async (err, accounts) => {
-      wallet = accounts[0]
+      if (err) {
+        return err
+      }
+      let wallet = accounts[0]
       console.log('wallet', wallet)
       let message = fb_id + '.' + wallet + '.' + 'ezdefi'
       web3.eth.personal.sign(message, wallet).then(async (signature) => {
@@ -94,6 +97,15 @@ export default class extends BaseService {
     } catch (error) {
       console.log('err', error)
     }
+  }
 
+  async getUerData(fb_id) {
+    try {
+      let response = await axios.get(API.GET_USER + fb_id)
+      console.log('response@@@@@@@', response)
+      return response;
+    } catch (error) {
+      console.log('err', error)
+    }
   }
 }
