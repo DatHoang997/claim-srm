@@ -40,15 +40,17 @@ const stats = () => {
     getCookie('ps_id')
     getCookie('fb_id')
     if (alpha) {
-      console.log('innnnnnnnnnnnn')
+      console.log('innnnnnnnnnnnn', process.env.TEST)
       clearInterval(myVar)
       setDisableSubmit(false)
-      // let data = await claimZsrmService.getUerData(alpha) //disable when testing
-      // console.log('data',data) //disable when testing
-      // if (data.data.data == true) { //disable when testing
-      //   setCheck(data.data.message) //disable when testing
-      // } //disable when testing
-      // setDisableSubmit(data.data.data) //disable when testing
+      if(process.env.TEST == false) {
+        let data = await claimZsrmService.getUerData(alpha) //disable when testing
+        console.log('data',data) //disable when testing
+        if (data.data.data == true) { //disable when testing
+          setCheck(data.data.message) //disable when testing
+        } //disable when testing
+        setDisableSubmit(data.data.data) //disable when testing
+      }
     }
   }
   console.log(check)
