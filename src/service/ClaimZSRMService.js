@@ -88,10 +88,7 @@ export default class extends BaseService {
     let URL = "https://api.botbanhang.vn/v1.3/public/json?access_token=f366d3eaeacba4f0c7a23ca752d9d615100905085ab2fb180b70afc4c3f6d9da&psid=" + ps_id
     console.log(URL)
     try {
-      let response = await axios.post(URL, {
-        Header: {"Content-Type": "application/json"},
-        Body: {"redirect_to_blocks": ["5f7c3245d5fa6c00120a7c9d"]}
-      })
+      let response = await axios.post(URL, {"redirect_to_blocks": ["5f7c3245d5fa6c00120a7c9d"]})
       console.log('response@@@@@@@', response)
       return response;
     } catch (error) {
