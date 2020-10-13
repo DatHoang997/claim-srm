@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from "react-redux"
 import StandardPage from '../StandardPage'
 import { Input, Row, Col, Button, message } from 'antd'
-import ClaimZsrmService from '@/service/ClaimZSRMService'
+import ClaimAsrmService from '@/service/ClaimASRMService'
 import { LoadingOutlined } from '@ant-design/icons'
 import 'antd/dist/antd.css';
 import './style.scss'
@@ -11,9 +11,10 @@ import {setupWeb3} from "../../../util/auth";
 
 const stats = () => {
   const dispatch = useDispatch(),
-        serverResponse = useSelector(state => state.claimZSRM.serverResponse),
-        signatureResponse = useSelector(state => state.claimZSRM.signatureResponse),
-        wallet = useSelector(state => state.claimZSRM.wallet),
+        serverResponse = useSelector(state => state.claimASRM.serverResponse),
+        signatureResponse = useSelector(state => state.claimASRM.signatureResponse),
+        wallet = useSelector(state => state.claimASRM.wallet),
+        balance = useSelector(state => state.claimASRM.balance),
         [srmAddress, setSrmAddress] = useState(''),
         [fbId, setFbId] = useState(null),
         [psId, setPsId] = useState(null),
@@ -21,43 +22,41 @@ const stats = () => {
         [disableSubmit, setDisableSubmit] = useState(true),
         [check, setCheck] = useState('')
 
-  const claimZsrmService = new ClaimZsrmService()
+  const claimAsrmService = new ClaimAsrmService()
   let myVar
   let myWallet
   let alpha = ''
   let beta = ''
 
   useEffect(() => {
+    claimAsrmService.asrmBalance()
     myVar = setInterval(go, 1000)
     if (window.ethereum) {
       setupWeb3()
     }
   }, [wallet])
 
-  console.log('wallet', wallet)
-
   const go = async() => {
     getCookie('ps_id')
     getCookie('fb_id')
     if (alpha) {
-      console.log('innnnnnnnnnnnn')
       clearInterval(myVar)
       setDisableSubmit(false)
-      let data = await claimZsrmService.getUerData(alpha) //disable when testing
-      console.log('data',data) //disable when testing
-      if (data.data.data == true) { //disable when testing
-        setCheck(data.data.message) //disable when testing
-      } //disable when testing
-      setDisableSubmit(data.data.data) //disable when testing
+      // let data = await claimAsrmService.getUerData(alpha)
+      // console.log('data',data)
+      // if (data.data.data == true) {
+      //   setCheck(data.data.message)
+      // }
+      // setDisableSubmit(data.data.data)
     }
   }
-  console.log(check)
+
   useEffect(() => {
     if (serverResponse) {
       setDisableSubmit(false)
     }
     if (serverResponse.status == 1) {
-      claimZsrmService.response(psId)
+      claimAsrmService.response(psId)
       message.success('Claim Success')
     }
     if (serverResponse.message === "already claimed") {
@@ -71,9 +70,9 @@ const stats = () => {
     }
   }, [signatureResponse])
 
-  const claimZSRM = async() => {
+  const claimASRM = async() => {
     setDisableSubmit(true)
-    let response = await claimZsrmService.claimZSRM(fbId, psId);
+    let response = await claimAsrmService.claimASRM(fbId, psId);
     if (response == false) {
       setErr('You must choose Nexty network to claim bounty')
     }
@@ -102,7 +101,7 @@ const stats = () => {
               <p>{fbId}</p>
             </Col>
             <Col span={24} className="center margin-top-md">
-              <Button type='primary' onClick={claimZSRM} disabled={disableSubmit}>
+              <Button type='primary' onClick={claimASRM} disabled={disableSubmit}>
                 {disableSubmit && <span className="margin-right-sm"> <LoadingOutlined/></span>}
                 Request bounty
               </Button>

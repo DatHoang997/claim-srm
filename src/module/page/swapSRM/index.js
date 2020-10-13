@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from "react-redux"
 import StandardPage from '../StandardPage'
 import { Input, Row, Col, Button } from 'antd'
-import ClaimZsrmService from '@/service/ClaimZSRMService'
+import ClaimAsrmService from '@/service/ClaimASRMService'
 import { LoadingOutlined } from '@ant-design/icons'
 import {thousands, weiToPOC, hideAddress, hideLink, pocToWei, usdtToWei, weiToUSDT} from '@/util/help.js'
 import {ArrowDownOutlined} from '@ant-design/icons'
@@ -12,23 +12,27 @@ import './style.scss'
 
 const stats = () => {
   const dispatch = useDispatch(),
-        serverResponse = useSelector(state => state.claimZSRM.serverResponse),
-        signatureResponse = useSelector(state => state.claimZSRM.signatureResponse),
+        serverResponse = useSelector(state => state.claimASRM.serverResponse),
+        signatureResponse = useSelector(state => state.claimASRM.signatureResponse),
         [srmAddress, setSrmAddress] = useState(''),
+        balance = useSelector(state => state.claimASRM.balance),
         [fbId, setFbId] = useState(''),
         [err, setErr] = useState(''),
         [disableSubmit, setDisableSubmit] = useState(false),
-        [zsrmAmount, setZsrmAmount] = useState(''),
-        [srmAmount, setSrmAmount] = useState(0),
-        [zsrmBalance, serZsrmBalance] = useState(10)
+        [asrmAmount, setAsrmAmount] = useState(''),
+        [srmAmount, setSrmAmount] = useState(0)
 
-  const claimZsrmService = new ClaimZsrmService()
+  const claimAsrmService = new ClaimAsrmService()
 
   const regexp = {
     ETH: /^0x[a-fA-F0-9]{40}$/,
     NUM: /^[0-9]+(\.[0-9]+)?$/
   }
 
+  useEffect(() => {
+    claimAsrmService.asrmBalance()
+  }, [])
+console.log('balance',balance)
   useEffect(() => {
     if (serverResponse) {
       setDisableSubmit(false)
@@ -44,20 +48,24 @@ const stats = () => {
   const exchange = async() => {
     // setDisableSubmit(true)
     setErr('')
-    claimZsrmService.swapSRM(zsrmAmount, srmAddress);
+    claimAsrmService.swapSRM(asrmAmount, srmAddress);
   }
 
   const onChangeSRM = (e) => {
     setErr('')
     setDisableSubmit(false)
     console.log(e.target.value)
-    setZsrmAmount(e.target.value)
+    setAsrmAmount(e.target.value)
     if(regexp.NUM.test(e.target.value)) {
       setSrmAmount(thousands(bigDecimal.multiply(e.target.value, 1000),5))
     }
     if(e.target.value == '') {
-      setZsrmAmount('')
+      setAsrmAmount('')
       setSrmAmount('')
+    }
+    if (parseFloat(e.target.value) > parseFloat(balance) && regexp.NUM.test(e.target.value)) {
+      setErr('not enough ASRM')
+      setDisableSubmit(true)
     }
   }
 
@@ -65,22 +73,23 @@ const stats = () => {
     setSrmAddress(e.target.value)
   }
 
-  console.log(srmAddress)
-
   return (
     <StandardPage>
+      <Row className="margin-top-md">
+        <p>ASRM balance: {balance}</p>
+      </Row>
       <Row>
         <Col span={24} className="margin-top-md">
           <div className="right-align">
             <button className="swap-btn swap-btn-green btn-all-in"
             onClick={() => {
-              setZsrmAmount(zsrmBalance)
-              setSrmAmount(thousands(bigDecimal.multiply(zsrmBalance, 1000),5))
+              setAsrmAmount(balance)
+              setSrmAmount(thousands(bigDecimal.multiply(balance, 1000),5))
             }
             }>
               max</button>
             <Input
-              type="text" className="fanPage-input" value={zsrmAmount}
+              type="text" className="fanPage-input" value={asrmAmount}
               onChange={onChangeSRM}>
             </Input>
           </div>

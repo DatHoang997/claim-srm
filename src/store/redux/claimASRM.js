@@ -1,8 +1,8 @@
 import BaseRedux from '@/model/BaseRedux'
 
-class claimZSRMRedux extends BaseRedux {
+class claimASRMRedux extends BaseRedux {
   defineTypes () {
-    return ['claimZSRM']
+    return ['claimASRM']
   }
 
   defineDefaultState () {
@@ -13,8 +13,10 @@ class claimZSRMRedux extends BaseRedux {
       ps_id: '',
       wallet: '',
       web3: '',
+      asrmToken: '',
+      balance: '',
     }
   }
 }
 
-export default new claimZSRMRedux()
+export default new claimASRMRedux()
