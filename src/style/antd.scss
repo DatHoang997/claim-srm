@@ -51,7 +51,15 @@
   }
 }
 
-.ant-tabs-nav .ant-tabs-tab:hover {
+.ant-tabs-tab-btn {
+  color: $primary_green;
+}
+
+.ant-tabs-tab-btn:active {
+  color: $primary_green;
+}
+
+.ant-tabs-nav {
   color: $primary_green
 }
 
@@ -59,12 +67,8 @@
   color: $primary_green;
 }
 
-.ant-tabs-tab-btn {
-  color: $primary_green;
-}
-
-.ant-tabs-nav .ant-tabs-tab:active {
-  color: $primary_green
+.ant-tabs-ink-bar {
+  background-color: $primary_green;
 }
 
 .anticon-calendar {

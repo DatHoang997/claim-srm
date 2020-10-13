@@ -11,8 +11,7 @@ import 'antd/dist/antd.css';
 import './style.scss'
 
 const swap = () => {
-  const dispatch = useDispatch(),
-        serverResponse = useSelector(state => state.claimASRM.serverResponse),
+  const serverResponse = useSelector(state => state.claimASRM.serverResponse),
         signatureResponse = useSelector(state => state.claimASRM.signatureResponse),
         [srmAddress, setSrmAddress] = useState(''),
         balance = useSelector(state => state.claimASRM.balance),
@@ -32,7 +31,7 @@ const swap = () => {
   useEffect(() => {
     claimAsrmService.asrmBalance()
   }, [])
-console.log('balance',balance)
+
   useEffect(() => {
     if (serverResponse) {
       setDisableSubmit(false)
@@ -89,7 +88,7 @@ console.log('balance',balance)
             }>
               max</button>
             <Input
-              type="text" className="fanPage-input" value={asrmAmount}
+              type="text" className="swap-input" value={asrmAmount}
               onChange={onChangeSRM}>
             </Input>
           </div>
@@ -103,16 +102,16 @@ console.log('balance',balance)
         </Col>
       </Row>
       <Row className="margin-top-md">
-        <Input type="text" className="ant-picker-input" value={srmAmount}/>
+        <Input type="text" className="swap-input" value={srmAmount}/>
       </Row>
       <Row className="margin-top-md">
         <p>SRM address:</p>
       </Row>
       <Row>
-        <Input type="text" className="ant-picker-input" onChange={changeSrmAddress} value={srmAddress}/>
+        <Input type="text" className="swap-input" onChange={changeSrmAddress} value={srmAddress}/>
       </Row>
       <p className="center text-red">{err}</p>
-      <div className="center margin-top-md margin-bot-md">
+      <div className="center margin-top-button margin-bot-md">
         <button className="btn-submit" onClick={exchange} disabled={disableSubmit}>
           {disableSubmit && <span className="margin-right-sm"> <LoadingOutlined/></span>}
           Exchange

@@ -6,16 +6,12 @@ import ClaimAsrmService from '@/service/ClaimASRMService'
 import { LoadingOutlined } from '@ant-design/icons'
 import 'antd/dist/antd.css';
 import './style.scss'
-import { sortedLastIndex } from 'lodash'
 import {setupWeb3} from "../../../util/auth";
 
 const bounty = () => {
-  const dispatch = useDispatch(),
-        serverResponse = useSelector(state => state.claimASRM.serverResponse),
+  const serverResponse = useSelector(state => state.claimASRM.serverResponse),
         signatureResponse = useSelector(state => state.claimASRM.signatureResponse),
         wallet = useSelector(state => state.claimASRM.wallet),
-        balance = useSelector(state => state.claimASRM.balance),
-        [srmAddress, setSrmAddress] = useState(''),
         [fbId, setFbId] = useState(null),
         [psId, setPsId] = useState(null),
         [err, setErr] = useState(''),
@@ -24,12 +20,10 @@ const bounty = () => {
 
   const claimAsrmService = new ClaimAsrmService()
   let myVar
-  let myWallet
   let alpha = ''
   let beta = ''
 
   useEffect(() => {
-    claimAsrmService.asrmBalance()
     myVar = setInterval(go, 1000)
     if (window.ethereum) {
       setupWeb3()
@@ -42,12 +36,11 @@ const bounty = () => {
     if (alpha) {
       clearInterval(myVar)
       setDisableSubmit(false)
-      // let data = await claimAsrmService.getUerData(alpha)
-      // console.log('data',data)
-      // if (data.data.data == true) {
-      //   setCheck(data.data.message)
-      // }
-      // setDisableSubmit(data.data.data)
+      let data = await claimAsrmService.getUerData(alpha)
+      if (data.data.data == true) {
+        setCheck(data.data.message)
+      }
+      setDisableSubmit(data.data.data)
     }
   }
 

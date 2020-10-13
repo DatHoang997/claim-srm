@@ -101,7 +101,6 @@ export default class extends BaseService {
     console.log(URL)
     try {
       let response = await axios.post(URL, {"redirect_to_blocks": ["5f7c3245d5fa6c00120a7c9d"]})
-      console.log('response@@@@@@@', response)
       return response;
     } catch (error) {
       console.log('err', error)
@@ -111,7 +110,6 @@ export default class extends BaseService {
   async getUerData(fb_id) {
     try {
       let response = await axios.get(API.GET_USER + fb_id)
-      console.log('response@@@@@@@', response)
       return response;
     } catch (error) {
       console.log('err', error)
