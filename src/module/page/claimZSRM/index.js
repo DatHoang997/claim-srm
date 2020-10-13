@@ -94,8 +94,6 @@ const stats = () => {
     }
   }
 
-  const joinAble = (serverResponse.status == 1 || serverResponse.message === "already claimed") ? true : false;
-
   return (
     <StandardPage>
         { (check == '') ?
@@ -105,7 +103,7 @@ const stats = () => {
               <p>{psId}</p>
             </Col>
             <Col span={24} className="center margin-top-md">
-              {joinAble
+              {serverResponse.status == 1
               ? <div>
                 <p className="margin-bot-md">Nhận bounty thành công. Bạn có muốn tiếp tục tham gia chương trình vòng quay may mắn trúng thưởng với những phần quà vô cùng giá trị</p>
                 <p><a class='ant-btn ant-btn-primary' target='_blank' href='https://m.me/1795330330742938?ref=.f.5f856318817b370012f33e4a'>Tham gia</a></p>
@@ -120,7 +118,8 @@ const stats = () => {
           </Row>
         :
           <Col span={24} className="center margin-top-md">
-            <h1>{check}</h1>
+            <p className="margin-bot-md">Nhận bounty thành công. Bạn có muốn tiếp tục tham gia chương trình vòng quay may mắn trúng thưởng với những phần quà vô cùng giá trị</p>
+            <p><a class='ant-btn ant-btn-primary' target='_blank' href='https://m.me/1795330330742938?ref=.f.5f856318817b370012f33e4a'>Tham gia</a></p>
           </Col>
         }
     </StandardPage>
