@@ -75,6 +75,7 @@ export default class extends BaseService {
               })
               var data = response.data
               console.log('@#@#@#response', data)
+              this.asrmBalance()
               that.dispatch(claimASRMRedux.actions.serverResponse_update(data))
               return false;
             } catch (error) {

@@ -10,7 +10,7 @@ import bigDecimal from 'js-big-decimal'
 import 'antd/dist/antd.css';
 import './style.scss'
 
-const stats = () => {
+const swap = () => {
   const dispatch = useDispatch(),
         serverResponse = useSelector(state => state.claimASRM.serverResponse),
         signatureResponse = useSelector(state => state.claimASRM.signatureResponse),
@@ -122,4 +122,4 @@ console.log('balance',balance)
   )
 }
 
-export default stats;
+export default swap;

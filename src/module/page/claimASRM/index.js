@@ -9,7 +9,7 @@ import './style.scss'
 import { sortedLastIndex } from 'lodash'
 import {setupWeb3} from "../../../util/auth";
 
-const stats = () => {
+const bounty = () => {
   const dispatch = useDispatch(),
         serverResponse = useSelector(state => state.claimASRM.serverResponse),
         signatureResponse = useSelector(state => state.claimASRM.signatureResponse),
@@ -96,15 +96,16 @@ const stats = () => {
   return (
     <StandardPage>
         { (check == '') ?
-        <Row>
+          <Row>
             <Col span={24} className="center margin-top-md">
               <p>{fbId}</p>
+              <p>{psId}</p>
             </Col>
             <Col span={24} className="center margin-top-md">
-              <Button type='primary' onClick={claimASRM} disabled={disableSubmit}>
+              <button className="btn-submit" onClick={claimASRM} disabled={disableSubmit}>
                 {disableSubmit && <span className="margin-right-sm"> <LoadingOutlined/></span>}
                 Request bounty
-              </Button>
+              </button>
               <p className="center text-red">{err}</p>
             </Col>
           </Row>
@@ -117,4 +118,4 @@ const stats = () => {
   )
 }
 
-export default stats;
+export default bounty;
