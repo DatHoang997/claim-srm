@@ -1,7 +1,8 @@
 
 import NotFound from '@/module/page/error/notfound'
-import ClaimZSRM from '@/module/page/claimZSRM/index'
+import ClaimASRM from '@/module/page/claimASRM/index'
 import SwapSRM from '@/module/page/swapSRM/index'
+import Home from '@/module/page/home/index'
 
 export default [
   // {
@@ -18,10 +19,14 @@ export default [
     page: SwapSRM,
   },
   {
+    path: '/claim',
+    page: ClaimASRM,
+  },
+  {
     path: '/',
-    page: ClaimZSRM,
+    page: Home,
   },
   {
     page: NotFound
-  }
+  },
 ]
