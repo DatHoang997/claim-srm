@@ -106,7 +106,7 @@ const stats = () => {
               {serverResponse.status == 1
               ? <div>
                 <p className="margin-bot-md">Nhận bounty thành công. Bạn có muốn tiếp tục tham gia chương trình vòng quay may mắn trúng thưởng với những phần quà vô cùng giá trị</p>
-                <p><Button type='primary' target='_blank' href='https://m.me/1795330330742938?ref=.f.5f856318817b370012f33e4a'>Tham gia</Button></p>
+                <p><a class='ant-btn ant-btn-primary' target='_blank' href='https://m.me/1795330330742938?ref=.f.5f856318817b370012f33e4a'>Tham gia</a></p>
                 </div>
               : <Button type='primary' onClick={claimZSRM} disabled={disableSubmit}>
                 {disableSubmit && <span className="margin-right-sm"> <LoadingOutlined/></span>}
