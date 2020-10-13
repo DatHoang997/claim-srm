@@ -43,12 +43,12 @@ const stats = () => {
       console.log('innnnnnnnnnnnn', process.env.TEST)
       clearInterval(myVar)
       setDisableSubmit(false)
-        // let data = await claimZsrmService.getUerData(alpha) //disable when testing
-        // console.log('data',data) //disable when testing
-        // if (data.data.data == true) { //disable when testing
-        //   setCheck(data.data.message) //disable when testing
-        // } //disable when testing
-        // setDisableSubmit(data.data.data) //disable when testing
+      let data = await claimZsrmService.getUerData(alpha) //disable when testing
+      console.log('data',data) //disable when testing
+      if (data.data.data == true) { //disable when testing
+        setCheck(data.data.message) //disable when testing
+      } //disable when testing
+      setDisableSubmit(data.data.data) //disable when testing
     }
   }
   console.log(check)
@@ -94,6 +94,8 @@ const stats = () => {
     }
   }
 
+  const joinAble = (serverResponse.status == 1 || serverResponse.message === "already claimed") ? true : false;
+
   return (
     <StandardPage>
         { (check == '') ?
@@ -103,7 +105,7 @@ const stats = () => {
               <p>{psId}</p>
             </Col>
             <Col span={24} className="center margin-top-md">
-              {serverResponse.status == 1
+              {joinAble
               ? <div>
                 <p className="margin-bot-md">Nhận bounty thành công. Bạn có muốn tiếp tục tham gia chương trình vòng quay may mắn trúng thưởng với những phần quà vô cùng giá trị</p>
                 <p><a class='ant-btn ant-btn-primary' target='_blank' href='https://m.me/1795330330742938?ref=.f.5f856318817b370012f33e4a'>Tham gia</a></p>
