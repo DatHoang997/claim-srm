@@ -35,6 +35,9 @@ const swap = () => {
   useEffect(() => {
     if (serverResponse) {
       setDisableSubmit(false)
+      setAsrmAmount('')
+      setSrmAddress('')
+      setSrmAmount(0)
     }
   }, [serverResponse])
 
@@ -47,7 +50,12 @@ const swap = () => {
   const exchange = async() => {
     // setDisableSubmit(true)
     setErr('')
-    claimAsrmService.swapSRM(asrmAmount, srmAddress);
+    if (srmAddress == '' && srmAmount == '' && asrmAmount == 0) {
+      setErr('fill all input')
+      setDisableSubmit(true)
+    } else {
+      claimAsrmService.swapSRM(asrmAmount, srmAddress);
+    }
   }
 
   const onChangeSRM = (e) => {
@@ -75,7 +83,7 @@ const swap = () => {
   return (
     <StandardPage>
       <Row className="margin-top-md">
-        <p>ASRM balance: {balance}</p>
+        <p>ASRM balance: {thousands(balance,5)}</p>
       </Row>
       <Row>
         <Col span={24} className="margin-top-md">

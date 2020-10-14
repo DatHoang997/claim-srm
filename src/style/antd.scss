@@ -14,8 +14,8 @@
 }
 
 .ant-picker-focused {
-  border: 1px solid $primary_green !important;
-  box-shadow: 0px 0px 2px $primary_green;
+  border: 1px solid $primary_color !important;
+  box-shadow: 0px 0px 2px $primary_color;
 }
 
 .ant-date-picker {
@@ -38,37 +38,37 @@
   }
 
   &:hover {
-    border: 1px solid $primary_green;
+    border: 1px solid $primary_color;
   }
 
   &:active {
-    border: 1px solid $primary_green;
+    border: 1px solid $primary_color;
   }
 
   &:focus {
-    border: 1px solid $primary_green;
-    box-shadow: 0px 0px 2px $primary_green;
+    border: 1px solid $primary_color;
+    box-shadow: 0px 0px 2px $primary_color;
   }
 }
 
 .ant-tabs-tab-btn {
-  color: $primary_green;
+  color: $primary_color;
 }
 
 .ant-tabs-tab-btn:active {
-  color: $primary_green;
+  color: $primary_color;
 }
 
 .ant-tabs-nav {
-  color: $primary_green
+  color: $primary_color
 }
 
 .ant-tabs-tab-active {
-  color: $primary_green;
+  color: $primary_color;
 }
 
 .ant-tabs-ink-bar {
-  background-color: $primary_green;
+  background-color: $primary_color;
 }
 
 .anticon-calendar {
@@ -108,16 +108,16 @@
     padding: 1px;
 
     &:hover {
-      border: 1px solid $primary_green;
+      border: 1px solid $primary_color;
     }
 
     &:active {
-      border: 1px solid $primary_green;
+      border: 1px solid $primary_color;
     }
 
     &:focus {
-      border: 1px solid $primary_green;
-      box-shadow: 0px 0px 2px $primary_green;
+      border: 1px solid $primary_color;
+      box-shadow: 0px 0px 2px $primary_color;
     }
   }
 
@@ -157,5 +157,5 @@
 }
 
 .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
-  color: $primary_green;
+  color: $primary_color;
 }

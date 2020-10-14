@@ -19,7 +19,7 @@ const home = () => {
   return (
     <StandardPage>
     <div className="merchant-management-page desktop-padding">
-      <h3 className="text-primary-green left-align padding-left-xs">EzDefi Bounty</h3>
+      <h3 className="text-primary left-align padding-left-xs">EzDefi Bounty</h3>
       <Tabs>
         <TabPane tab='Bounty' key="1">
           <Bounty/>

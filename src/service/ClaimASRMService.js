@@ -16,7 +16,7 @@ const API = {
 }
 
 export default class extends BaseService {
-  async claimASRM(fb_id, ps) {
+  async claimASRM(fb_id) {
     let that = this
     const storeUser = this.store.getState().claimASRM
     const web3 = new Web3(window.ethereum)

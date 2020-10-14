@@ -24,7 +24,7 @@ const bounty = () => {
   let beta = ''
 
   useEffect(() => {
-    myVar = setInterval(go, 1000)
+    myVar = setTimeout(go, 5000)
     if (window.ethereum) {
       setupWeb3()
     }
@@ -34,7 +34,7 @@ const bounty = () => {
     getCookie('ps_id')
     getCookie('fb_id')
     if (alpha) {
-      clearInterval(myVar)
+      console.log('LOOOOOOOOOOOOOO')
       setDisableSubmit(false)
       let data = await claimAsrmService.getUerData(alpha)
       if (data.data.data == true) {
