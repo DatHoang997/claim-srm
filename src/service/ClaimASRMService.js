@@ -57,11 +57,11 @@ export default class extends BaseService {
       let message = accounts[0] + '.' + address + '.' + 'ezdefi'
       let contract = new web3.eth.Contract(AsrmContract.abi, process.env.ASRM_CONTRACT_ADDRESS)
       console.log(contract)
-      let balance = await contract.methods.balanceOf(accounts[0]).call({ from: accounts[0] })
+      let balance = await contract.methods.balanceOf(wallet).call({ from: wallet })
       console.log(balance)
       if (accounts.length > 0) {
         web3.eth.personal.sign(message, accounts[0]).then(async (signature) => {
-          contract.methods.transfer(address, pocToWei(amount))
+          contract.methods.transfer(process.env.ASRM_POOL, pocToWei(amount))
           .send({
             from: accounts[0]
           })
