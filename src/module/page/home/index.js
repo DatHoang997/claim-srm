@@ -19,12 +19,12 @@ const home = () => {
   return (
     <StandardPage>
     <div className="merchant-management-page desktop-padding">
-      <h3 className="text-primary left-align padding-left-xs">EzDefi Bounty</h3>
+      <h3 className="text-primary left-align padding-left-xs">ezDeFi Bounty tặng ngay 300aSRM và Cơ hội trúng Iphone 11 khi người dùng sử dụng ví ezDeFi Wallet</h3>
       <Tabs>
-        <TabPane tab='Bounty' key="1">
+        <TabPane tab='Nhận aSRM' key="1">
           <Bounty/>
         </TabPane>
-        <TabPane tab='Swap' key="2">
+        <TabPane tab='Chuyển SRM' key="2">
           <Swap/>
         </TabPane>
       </Tabs>

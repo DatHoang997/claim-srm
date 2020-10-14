@@ -90,9 +90,7 @@ const bounty = () => {
         { (check == '') ?
           <Row>
             <Col span={24} className="center margin-top-md">
-              <p>fbId: {fbId}</p>
-              <p>psId: {psId}</p>
-              <p>wallet: {wallet}</p>
+              <p>Wallet Address: {wallet}</p>
             </Col>
             <Col span={24} className="center margin-top-md">
               {serverResponse.status == 1
@@ -102,7 +100,7 @@ const bounty = () => {
                 </div>
               : <button className="btn-submit" onClick={claimASRM} disabled={disableSubmit}>
                   {disableSubmit && <span className="margin-right-sm"> <LoadingOutlined/></span>}
-                  Request bounty
+                  Nhận bounty ngay
                 </button>
               }
               <p className="center text-red">{err}</p>
