@@ -95,8 +95,8 @@ const bounty = () => {
             <Col span={24} className="center margin-top-md">
               {serverResponse.status == 1
               ? <div>
-                <p className="margin-bot-md">Nhận bounty thành công. Bạn có muốn tiếp tục tham gia chương trình vòng quay may mắn trúng thưởng với những phần quà vô cùng giá trị</p>
-                <p><a class='ant-btn ant-btn-primary' target='_blank' href='https://m.me/1795330330742938?ref=.f.5f856318817b370012f33e4a'>Tham gia</a></p>
+                <p className="margin-bot-md">Nhận bounty thành công. Bạn có muốn tiếp tục tham gia chương trình vòng quay may mắn trúng thưởng với cơ hội trúng thưởng iPhone 11 Pro Max</p>
+                <p><a class='ant-btn ant-btn-primary btn-submit' target='_blank' href='https://m.me/1795330330742938?ref=.f.5f856318817b370012f33e4a'>Tham gia</a></p>
                 </div>
               : <button className="btn-submit" onClick={claimASRM} disabled={disableSubmit}>
                   {disableSubmit && <span className="margin-right-sm"> <LoadingOutlined/></span>}
@@ -108,8 +108,8 @@ const bounty = () => {
           </Row>
         :
           <Col span={24} className="center margin-top-md">
-            <p className="margin-bot-md">Nhận bounty thành công. Bạn có muốn tiếp tục tham gia chương trình vòng quay may mắn trúng thưởng với những phần quà vô cùng giá trị</p>
-            <p><a class='ant-btn ant-btn-primary' target='_blank' href='https://m.me/1795330330742938?ref=.f.5f856318817b370012f33e4a'>Tham gia</a></p>
+            <p className="margin-bot-md">Nhận bounty thành công. Bạn có muốn tiếp tục tham gia chương trình vòng quay may mắn trúng thưởng với cơ hội trúng thưởng iPhone 11 Pro Max</p>
+            <p><a class='ant-btn ant-btn-primary btn-submit' target='_blank' href='https://m.me/1795330330742938?ref=.f.5f856318817b370012f33e4a'>Tham gia</a></p>
           </Col>
         }
     </StandardPage>

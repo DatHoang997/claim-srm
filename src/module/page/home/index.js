@@ -19,7 +19,8 @@ const home = () => {
   return (
     <StandardPage>
     <div className="merchant-management-page desktop-padding">
-      <h3 className="text-primary left-align padding-left-xs">ezDeFi Bounty tặng ngay 300aSRM và Cơ hội trúng Iphone 11 khi người dùng sử dụng ví ezDeFi Wallet</h3>
+      <img src="assets/images/logo-ezdefi.png" width="120" />
+      <h4 className="text-primary left-align padding-left-xs">ezDeFi Bounty tặng ngay 300aSRM và Cơ hội trúng Iphone 11 khi người dùng sử dụng ví ezDeFi Wallet</h4>
       <Tabs>
         <TabPane tab='Nhận aSRM' key="1">
           <Bounty/>
