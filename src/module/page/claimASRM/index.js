@@ -2,28 +2,24 @@ import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from "react-redux"
 import StandardPage from '../StandardPage'
 import { Input, Row, Col, Button, message } from 'antd'
-import ClaimZsrmService from '@/service/ClaimZSRMService'
+import ClaimAsrmService from '@/service/ClaimASRMService'
 import { LoadingOutlined } from '@ant-design/icons'
 import 'antd/dist/antd.css';
 import './style.scss'
-import { sortedLastIndex } from 'lodash'
 import {setupWeb3} from "../../../util/auth";
 
-const stats = () => {
-  const dispatch = useDispatch(),
-        serverResponse = useSelector(state => state.claimZSRM.serverResponse),
-        signatureResponse = useSelector(state => state.claimZSRM.signatureResponse),
-        wallet = useSelector(state => state.claimZSRM.wallet),
-        [srmAddress, setSrmAddress] = useState(''),
+const bounty = () => {
+  const serverResponse = useSelector(state => state.claimASRM.serverResponse),
+        signatureResponse = useSelector(state => state.claimASRM.signatureResponse),
+        wallet = useSelector(state => state.claimASRM.wallet),
         [fbId, setFbId] = useState(null),
         [psId, setPsId] = useState(null),
         [err, setErr] = useState(''),
         [disableSubmit, setDisableSubmit] = useState(true),
         [check, setCheck] = useState('')
 
-  const claimZsrmService = new ClaimZsrmService()
+  const claimAsrmService = new ClaimAsrmService()
   let myVar
-  let myWallet
   let alpha = ''
   let beta = ''
 
@@ -34,24 +30,20 @@ const stats = () => {
     }
   }, [wallet])
 
-  console.log('wallet', wallet)
-
   const go = async() => {
     getCookie('ps_id')
     getCookie('fb_id')
     if (alpha) {
-      console.log('innnnnnnnnnnnn', process.env.TEST)
       clearInterval(myVar)
       setDisableSubmit(false)
-      let data = await claimZsrmService.getUerData(alpha) //disable when testing
-      console.log('data',data) //disable when testing
-      if (data.data.data == true) { //disable when testing
-        setCheck(data.data.message) //disable when testing
-      } //disable when testing
-      setDisableSubmit(data.data.data) //disable when testing
+      let data = await claimAsrmService.getUerData(alpha)
+      if (data.data.data == true) {
+        setCheck(data.data.message)
+      }
+      setDisableSubmit(data.data.data)
     }
   }
-  console.log(check)
+
   useEffect(() => {
     if (serverResponse) {
       setDisableSubmit(false)
@@ -71,9 +63,9 @@ const stats = () => {
     }
   }, [signatureResponse])
 
-  const claimZSRM = async() => {
+  const claimASRM = async() => {
     setDisableSubmit(true)
-    let response = await claimZsrmService.claimZSRM(fbId, psId);
+    let response = await claimAsrmService.claimASRM(fbId, psId);
     if (response == false) {
       setErr('You must choose Nexty network to claim bounty')
     }
@@ -97,7 +89,7 @@ const stats = () => {
   return (
     <StandardPage>
         { (check == '') ?
-        <Row>
+          <Row>
             <Col span={24} className="center margin-top-md">
               <p>{fbId}</p>
               <p>{psId}</p>
@@ -108,10 +100,10 @@ const stats = () => {
                 <p className="margin-bot-md">Nhận bounty thành công. Bạn có muốn tiếp tục tham gia chương trình vòng quay may mắn trúng thưởng với những phần quà vô cùng giá trị</p>
                 <p><a class='ant-btn ant-btn-primary' target='_blank' href='https://m.me/1795330330742938?ref=.f.5f856318817b370012f33e4a'>Tham gia</a></p>
                 </div>
-              : <Button type='primary' onClick={claimZSRM} disabled={disableSubmit}>
-                {disableSubmit && <span className="margin-right-sm"> <LoadingOutlined/></span>}
-                Request bounty
-              </Button>
+              : <button className="btn-submit" onClick={claimASRM} disabled={disableSubmit}>
+                  {disableSubmit && <span className="margin-right-sm"> <LoadingOutlined/></span>}
+                  Request bounty
+                </button>
               }
               <p className="center text-red">{err}</p>
             </Col>
@@ -126,4 +118,4 @@ const stats = () => {
   )
 }
 
-export default stats;
+export default bounty;

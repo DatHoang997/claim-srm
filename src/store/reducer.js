@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
 import { routerReducer } from 'react-router-redux'
-import claimZSRM from './redux/claimZSRM'
+import claimASRM from './redux/claimASRM'
 
 const default_state = {
   init: false
@@ -16,5 +16,5 @@ const appReducer = (state = default_state, action) => {
 export default combineReducers({
   app: appReducer,
   router: routerReducer,
-  claimZSRM: claimZSRM.getReducer()
+  claimASRM: claimASRM.getReducer()
 })
