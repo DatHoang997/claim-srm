@@ -27,12 +27,12 @@
 
       &:hover {
         transform: translateY(-2px);
-        color: $primary_green
+        color: $primary_color
       }
 
       &:active {
         transform: translateY(2px);
-        color: $primary_green
+        color: $primary_color
       }
     }
 
@@ -63,7 +63,7 @@
 
     &-delete {
       color: white;
-      background-color: $primary_green;
+      background-color: $primary_color;
 
       &:hover {
         transform: translateY(-2px);
@@ -101,7 +101,7 @@
     }
 
     &-orange {
-      background-color: $primary_green;
+      background-color: $primary_color;
       color: white;
 
       &:hover {
@@ -157,12 +157,12 @@
 
       &:hover {
         transform: translateY(-2px);
-        color: $primary_green
+        color: $primary_color
       }
 
       &:active {
         transform: translateY(2px);
-        color: $primary_green
+        color: $primary_color
       }
     }
 
@@ -193,7 +193,7 @@
 
     &-delete {
       color: white;
-      background-color: $primary_green;
+      background-color: $primary_color;
 
       &:hover {
         transform: translateY(-2px);
@@ -231,7 +231,7 @@
     }
 
     &-orange {
-      background-color: $primary_green;
+      background-color: $primary_color;
       color: white;
 
       &:hover {
@@ -270,7 +270,7 @@
   border: 2px solid hsla(0, 0%, 100%, .57);
   align-items: center;
   margin-bottom: 10px;
-  background: linear-gradient(211deg, #8BC249 , #23A455);
+  background: linear-gradient(211deg, #a0a6eb , #4b58e3);
 
   &:hover {
     transform: translateY(-1px);
@@ -287,7 +287,7 @@
     width: 100%;
     height: 100%;
     position: absolute;
-    background: $primary_green;
+    background: $primary_color;
     top: 0;
     left: 0;
     border-radius: 100px;

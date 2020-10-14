@@ -13,8 +13,9 @@ import './style.scss'
 const swap = () => {
   const serverResponse = useSelector(state => state.claimASRM.serverResponse),
         signatureResponse = useSelector(state => state.claimASRM.signatureResponse),
-        [srmAddress, setSrmAddress] = useState(''),
         balance = useSelector(state => state.claimASRM.balance),
+        wallet = useSelector(state => state.claimASRM.wallet),
+        [srmAddress, setSrmAddress] = useState(''),
         [fbId, setFbId] = useState(''),
         [err, setErr] = useState(''),
         [disableSubmit, setDisableSubmit] = useState(false),
@@ -35,6 +36,9 @@ const swap = () => {
   useEffect(() => {
     if (serverResponse) {
       setDisableSubmit(false)
+      setAsrmAmount('')
+      setSrmAddress('')
+      setSrmAmount(0)
     }
   }, [serverResponse])
 
@@ -47,7 +51,12 @@ const swap = () => {
   const exchange = async() => {
     // setDisableSubmit(true)
     setErr('')
-    claimAsrmService.swapSRM(asrmAmount, srmAddress);
+    if (srmAddress == '' && srmAmount == '' && asrmAmount == 0) {
+      setErr('fill all input')
+      setDisableSubmit(true)
+    } else {
+      claimAsrmService.swapSRM(asrmAmount, srmAddress, wallet);
+    }
   }
 
   const onChangeSRM = (e) => {
@@ -56,7 +65,7 @@ const swap = () => {
     console.log(e.target.value)
     setAsrmAmount(e.target.value)
     if(regexp.NUM.test(e.target.value)) {
-      setSrmAmount(thousands(bigDecimal.multiply(e.target.value, 1000),5))
+      setSrmAmount(thousands(bigDecimal.multiply(e.target.value, 0.001), 7))
     }
     if(e.target.value == '') {
       setAsrmAmount('')
@@ -75,7 +84,7 @@ const swap = () => {
   return (
     <StandardPage>
       <Row className="margin-top-md">
-        <p>ASRM balance: {balance}</p>
+        <p>ASRM balance: {thousands(balance, 7)}</p>
       </Row>
       <Row>
         <Col span={24} className="margin-top-md">
@@ -83,7 +92,7 @@ const swap = () => {
             <button className="swap-btn swap-btn-green btn-all-in"
             onClick={() => {
               setAsrmAmount(balance)
-              setSrmAmount(thousands(bigDecimal.multiply(balance, 1000),5))
+              setSrmAmount(thousands(bigDecimal.multiply(balance, 0.001), 7))
             }
             }>
               max</button>

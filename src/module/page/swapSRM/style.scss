@@ -38,15 +38,15 @@
   border-radius: 8px;
 
   &:hover {
-    border: 1px solid $primary_green;
+    border: 1px solid $primary_color;
   }
 
   &:active {
-    border: 1px solid $primary_green;
+    border: 1px solid $primary_color;
   }
 
   &:focus {
-    border: 1px solid $primary_green;
-    box-shadow: 0px 0px 2px $primary_green;
+    border: 1px solid $primary_color;
+    box-shadow: 0px 0px 2px $primary_color;
   }
 }

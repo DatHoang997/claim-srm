@@ -24,25 +24,11 @@ const bounty = () => {
   let beta = ''
 
   useEffect(() => {
-    myVar = setInterval(go, 1000)
+    myVar = setTimeout(go, 5000)
     if (window.ethereum) {
       setupWeb3()
     }
   }, [wallet])
-
-  const go = async() => {
-    getCookie('ps_id')
-    getCookie('fb_id')
-    if (alpha) {
-      clearInterval(myVar)
-      setDisableSubmit(false)
-      let data = await claimAsrmService.getUerData(alpha)
-      if (data.data.data == true) {
-        setCheck(data.data.message)
-      }
-      setDisableSubmit(data.data.data)
-    }
-  }
 
   useEffect(() => {
     if (serverResponse) {
@@ -62,6 +48,19 @@ const bounty = () => {
       setDisableSubmit(false)
     }
   }, [signatureResponse])
+
+  const go = async() => {
+    getCookie('ps_id')
+    getCookie('fb_id')
+    if (alpha) {
+      setDisableSubmit(false)
+      let data = await claimAsrmService.getUerData(alpha)
+      if (data.data.data == true) {
+        setCheck(data.data.message)
+      }
+      setDisableSubmit(data.data.data)
+    }
+  }
 
   const claimASRM = async() => {
     setDisableSubmit(true)
@@ -91,8 +90,9 @@ const bounty = () => {
         { (check == '') ?
           <Row>
             <Col span={24} className="center margin-top-md">
-              <p>{fbId}</p>
-              <p>{psId}</p>
+              <p>fbId: {fbId}</p>
+              <p>psId: {psId}</p>
+              <p>wallet: {wallet}</p>
             </Col>
             <Col span={24} className="center margin-top-md">
               {serverResponse.status == 1
