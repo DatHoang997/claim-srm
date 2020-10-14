@@ -47,23 +47,23 @@ export default class extends BaseService {
     });
   }
 // 6VTiGtHw67jJxnftBMbmnE5g8jsGJhYfXm55csfWmS5W
-  async swapSRM(amount, address) {
-    console.log('AsrmContract',AsrmContract)
+  async swapSRM(amount, address, wallet) {
+    console.log('wallet',wallet)
     let that = this
     const web3 = new Web3(window.ethereum)
     const claimASRMRedux = this.store.getRedux('claimASRM')
     await window.web3.eth.getAccounts(async (err, accounts) => {
       if (err) return
       let message = accounts[0] + '.' + address + '.' + 'ezdefi'
-      let contract = new web3.eth.Contract(AsrmContract.abi, '0x14ccf9f6653eac614a377ee827f0520601d3e68c')
+      let contract = new web3.eth.Contract(AsrmContract.abi, process.env.ASRM_CONTRACT_ADDRESS)
       console.log(contract)
       let balance = await contract.methods.balanceOf(accounts[0]).call({ from: accounts[0] })
       console.log(balance)
       if (accounts.length > 0) {
         web3.eth.personal.sign(message, accounts[0]).then(async (signature) => {
-          contract.methods.transfer('0x6dd6A324909814DD62C4d26E66185469D95C449D', pocToWei(amount))
+          contract.methods.transfer(address, pocToWei(amount))
           .send({
-            from: '0x4A306E3Fa9371b73604AC5eA76dfc9839a0E221A'
+            from: accounts[0]
           })
           .then(async (transfer) => {
             console.log('txHast', transfer)

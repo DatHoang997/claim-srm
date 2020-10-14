@@ -30,20 +30,6 @@ const bounty = () => {
     }
   }, [wallet])
 
-  const go = async() => {
-    getCookie('ps_id')
-    getCookie('fb_id')
-    if (alpha) {
-      console.log('LOOOOOOOOOOOOOO')
-      setDisableSubmit(false)
-      let data = await claimAsrmService.getUerData(alpha)
-      if (data.data.data == true) {
-        setCheck(data.data.message)
-      }
-      setDisableSubmit(data.data.data)
-    }
-  }
-
   useEffect(() => {
     if (serverResponse) {
       setDisableSubmit(false)
@@ -63,9 +49,22 @@ const bounty = () => {
     }
   }, [signatureResponse])
 
+  const go = async() => {
+    getCookie('ps_id')
+    getCookie('fb_id')
+    if (alpha) {
+      setDisableSubmit(false)
+      let data = await claimAsrmService.getUerData(alpha)
+      if (data.data.data == true) {
+        setCheck(data.data.message)
+      }
+      setDisableSubmit(data.data.data)
+    }
+  }
+
   const claimASRM = async() => {
     setDisableSubmit(true)
-    let response = await claimAsrmService.claimASRM(fbId, psId);
+    let response = await claimAsrmService.claimASRM(fbId, psId, wallet);
     if (response == false) {
       setErr('You must choose Nexty network to claim bounty')
     }
@@ -91,8 +90,9 @@ const bounty = () => {
         { (check == '') ?
           <Row>
             <Col span={24} className="center margin-top-md">
-              <p>{fbId}</p>
-              <p>{psId}</p>
+              <p>fbId: {fbId}</p>
+              <p>psId: {psId}</p>
+              <p>wallet: {wallet}</p>
             </Col>
             <Col span={24} className="center margin-top-md">
               <button className="btn-submit" onClick={claimASRM} disabled={disableSubmit}>

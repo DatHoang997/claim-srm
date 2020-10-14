@@ -92,8 +92,8 @@ module.exports = merge(common, {
         USDT_CONTRACT_ADDRESS: JSON.stringify('TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t'),
         USDT_POOL: JSON.stringify('TZJQ3dz8ndvCu3CELGRBhAkZCe8uG1EJPL'),
         POC_POOL: JSON.stringify('0x6dd6A324909814DD62C4d26E66185469D95C449D'),
-        ASRM_ADDRESS: JSON.stringify('0xD8cD9DCB9129afd033b6C75b23C65DC5fCdcd022'),
-        ASRM_POOL: JSON.stringify('0x6dd6A324909814DD62C4d26E66185469D95C449D')
+        ASRM_POOL: JSON.stringify('0x6dd6A324909814DD62C4d26E66185469D95C449D'),
+        ASRM_CONTRACT_ADDRESS: JSON.stringify('0xD8cD9DCB9129afd033b6C75b23C65DC5fCdcd022')
       }
     }),
     new webpack.optimize.OccurrenceOrderPlugin(),

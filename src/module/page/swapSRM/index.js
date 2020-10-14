@@ -64,7 +64,7 @@ const swap = () => {
     console.log(e.target.value)
     setAsrmAmount(e.target.value)
     if(regexp.NUM.test(e.target.value)) {
-      setSrmAmount(thousands(bigDecimal.multiply(e.target.value, 1000),5))
+      setSrmAmount(thousands(bigDecimal.multiply(e.target.value, 0.001),5))
     }
     if(e.target.value == '') {
       setAsrmAmount('')
@@ -91,7 +91,7 @@ const swap = () => {
             <button className="swap-btn swap-btn-green btn-all-in"
             onClick={() => {
               setAsrmAmount(balance)
-              setSrmAmount(thousands(bigDecimal.multiply(balance, 1000),5))
+              setSrmAmount(thousands(bigDecimal.multiply(balance, 0.001),5))
             }
             }>
               max</button>
