@@ -32,7 +32,7 @@ export default class extends BaseService {
     web3.eth.personal.sign(message, wallet).then(async (signature) => {
       try {
         let response = await axios.post(API.CLAIM_SRM, {
-          data: message,
+          message: message,
           signature: signature,
         })
         console.log('response',response)
