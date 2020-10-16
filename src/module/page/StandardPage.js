@@ -12,13 +12,13 @@ const BasePage = (props) => {
             props.noHeader ? '' : <Header/>
           }
         </Col> */}
-        <Col xs={{span: 24}} sm={{span: 24}} md={{span: 24}} lg={{span: 24}} xl={{span: 24}} xxl={{span: 24}} className="background">
+        <Col xs={{span: 24}} sm={{span: 24}} md={{span: 24}} lg={{span: 24}} xl={{span: 24}} xxl={{span: 24}} className="background bottom-home">
+          {/* <div className='bottom-home'/> */}
           <Layout.Content>
           <div className="main-content">
-              {props.children}
+            {props.children}
           </div>
           </Layout.Content>
-          <div className='bottom-home'/>
         </Col>
         <Col span={24}>
           <Footer />

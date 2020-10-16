@@ -89,13 +89,13 @@ const swap = () => {
         <Col span={24}>
           <div className="margin-top-sm center">
             <span>
-              <p className="text-white-light">aSRM balance: {thousands(balance, 7)}</p>
+              <p className="text-white-light">Số dư aSRM: {thousands(balance, 7)}</p>
             </span>
           </div>
         </Col>
         <Col span={24} className="margin-top-sm">
           <div className="right-align">
-            <button className="swap-btn btn-all-in swap-btn-green"
+            <button className="swap-btn btn-all-in"
             onClick={() => {
               setAsrmAmount(balance)
               setSrmAmount(thousands(bigDecimal.multiply(balance, 0.001), 7))
@@ -123,13 +123,13 @@ const swap = () => {
         <Col span={24}>
           <div className="margin-top-sm center">
             <span>
-              <p className="text-white-light">SRM address:</p>
+              <p className="text-white-light">Địa chỉ SRM:</p>
             </span>
           </div>
         </Col>
       </Row>
       <Row>
-        <Input type="text" className="swap-input" onChange={changeSrmAddress} value={srmAddress}/>
+        <Input type="text" className="swap-input margin-top-sm" onChange={changeSrmAddress} value={srmAddress}/>
       </Row>
       <p className="center text-red">{err}</p>
       <div className="center margin-top-button margin-bot-md">

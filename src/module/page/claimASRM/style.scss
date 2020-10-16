@@ -1,1 +1,20 @@
 @import "../../../style/color";
+
+.roll {
+  height: 50px;
+  color: $white_color;
+}
+
+.link{
+  &:active {
+    color: $white_color
+  }
+
+  &:hover {
+    color: $white_color
+  }
+}
+
+.err {
+  text-shadow: -1px 0 red, 0 1px red, 1px 0 red, 0 -1px red
+}
