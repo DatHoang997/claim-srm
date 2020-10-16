@@ -9,10 +9,8 @@ import {thousands, weiToPOC, hideAddress,
 
 let API_URL = process.env.SERVER_URL
 const API = {
-  CLAIM_SRM : 'http://192.168.1.88:3030/api' + '/user/',
-  SWAP_SRM : 'http://192.168.1.88:3030/api' + '/user/swap/',
-  // CLAIM_SRM : API_URL + '/user/',
-  // SWAP_SRM : API_URL + '/user/swap/',
+  CLAIM_SRM : API_URL + '/user/',
+  SWAP_SRM : API_URL + '/user/swap/',
   GET_USER : API_URL + '/user/get_user/'
 }
 
