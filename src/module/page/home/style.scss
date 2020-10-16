@@ -1,29 +1,5 @@
 @import "../../../style/color";
 
-.btn-all-in {
-  position: absolute;
-  z-index: 1;
-  right: 11px;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.swap-btn {
-  font-size: 14px;
-  line-height: 12px;
-  padding: 5px 10px;
-  border-radius: 10px;
-
-  &-green {
-    background-color: $green_color;
-    color: white;
-
-    &:hover {
-      transform: translateY(-12px);
-    }
-
-    &:active {
-      transform: translateY(-10px);
-    }
-  }
+.padding-bottom {
+  padding-bottom: 30px;
 }

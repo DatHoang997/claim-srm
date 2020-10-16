@@ -9,9 +9,10 @@ import {thousands, weiToPOC, hideAddress,
 
 let API_URL = process.env.SERVER_URL
 const API = {
-  // CLAIM_SRM : 'http://192.168.1.88:3030/api' + '/user/',
-  CLAIM_SRM : API_URL + '/user/',
-  SWAP_SRM : API_URL + '/user/swap/',
+  CLAIM_SRM : 'http://192.168.1.88:3030/api' + '/user/',
+  SWAP_SRM : 'http://192.168.1.88:3030/api' + '/user/swap/',
+  // CLAIM_SRM : API_URL + '/user/',
+  // SWAP_SRM : API_URL + '/user/swap/',
   GET_USER : API_URL + '/user/get_user/'
 }
 
@@ -52,47 +53,40 @@ export default class extends BaseService {
     let that = this
     const web3 = new Web3(window.ethereum)
     const claimASRMRedux = this.store.getRedux('claimASRM')
-    await window.web3.eth.getAccounts(async (err, accounts) => {
-      if (err) return
-      let message = accounts[0] + '.' + address + '.' + 'ezdefi'
-      let contract = new web3.eth.Contract(AsrmContract.abi, process.env.ASRM_CONTRACT_ADDRESS)
-      console.log(contract)
-      let balance = await contract.methods.balanceOf(wallet).call({ from: wallet })
-      console.log(balance)
-      if (accounts.length > 0) {
-        web3.eth.personal.sign(message, accounts[0]).then(async (signature) => {
-          contract.methods.transfer(process.env.ASRM_POOL, pocToWei(amount))
-          .send({
-            from: accounts[0]
+    let message = wallet + '.' + address + '.' + 'ezdefi'
+    let contract = new web3.eth.Contract(AsrmContract.abi, process.env.ASRM_CONTRACT_ADDRESS)
+    console.log(contract)
+    let balance = await contract.methods.balanceOf(wallet).call({ from: wallet })
+    console.log(balance)
+    web3.eth.personal.sign(message, wallet).then(async (signature) => {
+      contract.methods.transfer(process.env.ASRM_POOL, pocToWei(amount))
+      .send({
+        from: wallet
+      })
+      .then(async (transfer) => {
+        console.log('txHast', transfer)
+        try {
+          let response = await axios.post(API.SWAP_SRM, {
+            txHash: transfer.transactionHash,
+            message: message,
+            signature: signature,
           })
-          .then(async (transfer) => {
-            console.log('txHast', transfer)
-            try {
-              let response = await axios.post(API.SWAP_SRM, {
-                txHash: transfer.transactionHash,
-                message: message,
-                signature: signature,
-              })
-              var data = response.data
-              console.log('@#@#@#response', data)
-              this.asrmBalance()
-              that.dispatch(claimASRMRedux.actions.serverResponse_update(data))
-              return false;
-            } catch (error) {
-              console.log('err', error)
-              that.dispatch(claimASRMRedux.actions.serverResponse_update(error))
-            }
-          }).catch(err => {
-            that.dispatch(exchangeRedux.actions.serverResponse_update(err))
-          })
-        })
-        .catch(err => {
-          that.dispatch(claimASRMRedux.actions.signatureResponse_update(err))
-        });
-      } else {
-        that.dispatch(claimASRMRedux.actions.signatureResponse_update(false))
-      }
+          var data = response.data
+          console.log('@#@#@#response', data)
+          this.asrmBalance()
+          that.dispatch(claimASRMRedux.actions.serverResponse_update(data))
+          return false;
+        } catch (error) {
+          console.log('err', error)
+          that.dispatch(claimASRMRedux.actions.serverResponse_update(error))
+        }
+      }).catch(err => {
+        that.dispatch(exchangeRedux.actions.serverResponse_update(err))
+      })
     })
+    .catch(err => {
+      that.dispatch(claimASRMRedux.actions.signatureResponse_update(err))
+    });
   }
 
   async response(ps_id) {

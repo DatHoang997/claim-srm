@@ -8,14 +8,26 @@
   height: 0;
 }
 
+.bottom-home {
+  // background-color: white;
+  height: 50px;
+}
+
+.background {
+  background: linear-gradient(195.1deg, #6772E5 2.05%, #224099 98.78%);;
+  height: 100vh;
+  // background-image: url(../assets/images/ezdefi.png)
+}
+
 @media only screen and (min-width: 992px) {
   .hide-on-lg {
     display: none;
   }
 
   .desktop-padding {
-    padding-top: 35px
+    padding-top: 15px
   }
+
 }
 
 @media only screen and (max-width: 992px) {
@@ -24,7 +36,7 @@
   }
 
   .main-content {
-    margin-top: 45px;
+    margin-top: 15px;
   }
 }
 
@@ -40,7 +52,7 @@
   }
 
   .main-content {
-    margin-top: 55px;
+    margin-top: 15px;
   }
 
   .hide-on-desktop {

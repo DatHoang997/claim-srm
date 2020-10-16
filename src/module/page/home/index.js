@@ -18,19 +18,21 @@ const home = () => {
 
   return (
     <StandardPage>
-    <div className="merchant-management-page desktop-padding">
-      <img src="assets/images/logo-ezdefi.png" width="120" />
-      <h4 className="text-primary left-align padding-left-xs">ezDeFi Bounty tặng ngay 300aSRM và Cơ hội trúng Iphone 11 khi người dùng sử dụng ví ezDeFi Wallet</h4>
-      <Tabs>
-        <TabPane tab='Nhận aSRM' key="1">
-          <Bounty/>
-        </TabPane>
-        <TabPane tab='Chuyển SRM' key="2">
-          <Swap/>
-        </TabPane>
-      </Tabs>
-    </div>
-  </StandardPage>
+      <div>
+        <div className="center">
+          <img src="../../../assets/images/ezdefi.svg" alt=""/>
+        </div>
+        <h4 className="center text-white-bold padding-bottom margin-top-md">ezDefi Bounty tặng ngay 300aSRM và cơ hội trúng Iphone 11 khi người dùng sử dụng ezDefi wallet</h4>
+        <Tabs>
+          <TabPane tab='Nhận aSRM' key="1">
+            <Bounty/>
+          </TabPane>
+          <TabPane tab='Chuyển SRM' key="2">
+            <Swap/>
+          </TabPane>
+        </Tabs>
+      </div>
+    </StandardPage>
   )
 }
 
