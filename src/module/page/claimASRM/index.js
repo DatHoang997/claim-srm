@@ -16,7 +16,9 @@ const bounty = () => {
         [psId, setPsId] = useState(null),
         [err, setErr] = useState(''),
         [disableSubmit, setDisableSubmit] = useState(true),
-        [check, setCheck] = useState('')
+        [check, setCheck] = useState(''),
+        [msg, setMsg] = useState(''),
+        [noti, setNoti] = useState('')
 
   const claimAsrmService = new ClaimAsrmService()
   let myVar
@@ -37,9 +39,12 @@ const bounty = () => {
     if (serverResponse.status == 1) {
       claimAsrmService.response(psId)
       message.success('Claim Success')
+      setNoti('')
+      setMsg(<p>Nhận bounty thành công. Bạn có muốn tiếp tục tham gia chương trình vòng quay may mắn trúng thưởng với cơ hội trúng thưởng iPhone 11 Pro Max</p>)
+      setDisableSubmit(true)
     }
     if (serverResponse.message === "already claimed") {
-      setErr("already claimed")
+      setErr("Bạn đã được nhận thưởng")
     }
   }, [serverResponse])
 
@@ -56,9 +61,34 @@ const bounty = () => {
       setDisableSubmit(false)
       let data = await claimAsrmService.getUerData(alpha)
       if (data.data.data == true) {
-        setCheck(data.data.message)
+        setCheck(
+          <div>
+            <p>Bạn chưa đủ điều kiện tham gia vì một trong những lý do sau:</p>
+            <p>  - Chương trình chỉ áp dụng cho người mới sử dụng ứng dụng ezDeFi</p>
+            <p>  - Chương trình chỉ áp dụng sau khi bạn đã comment và tag đủ 05 người bạn trên fanpgage</p>
+            <p>  - Có gián đoạn xảy ra khi bạn tham gia chương trình</p>
+            <p>Vui lòng gỡ ứng dụng và click và đường link chúng tôi đã gửi cho bạn qua Messenger</p>
+          </div>
+        )
+      }
+
+      if (data.data.data == false) {
+        console.log(data.data)
+        setNoti(<p>{data.data.message}</p>)
       }
       setDisableSubmit(data.data.data)
+    }
+    if (!alpha) {
+      setDisableSubmit(true)
+      setErr(
+        <div>
+          <p>Bạn chưa đủ điều kiện tham gia vì một trong những lý do sau:</p>
+          <p>  - Chương trình chỉ áp dụng cho người mới sử dụng ứng dụng ezDeFi</p>
+          <p>  - Chương trình chỉ áp dụng sau khi bạn đã comment và tag đủ 05 người bạn trên fanpgage</p>
+          <p>  - Có gián đoạn xảy ra khi bạn tham gia chương trình</p>
+          <p>Vui lòng gỡ ứng dụng và click và đường link chúng tôi đã gửi cho bạn qua Messenger</p>
+        </div>
+      )
     }
   }
 
@@ -86,28 +116,37 @@ const bounty = () => {
   }
 
   return (
-    <StandardPage>
-        { (check == '') ?
-          <Row>
-            <Col span={24} className="center margin-top-md">
-              <p>fbId: {fbId}</p>
-              <p>psId: {psId}</p>
-              <p>wallet: {wallet}</p>
-            </Col>
-            <Col span={24} className="center margin-top-md">
-              <button className="btn-submit" onClick={claimASRM} disabled={disableSubmit}>
-                {disableSubmit && <span className="margin-right-sm"> <LoadingOutlined/></span>}
-                Request bounty
-              </button>
-              <p className="center text-red">{err}</p>
-            </Col>
-          </Row>
-        :
+    <Col span={24}>
+      { (check == '') ?
+        <Row>
           <Col span={24} className="center margin-top-md">
-            <h1>{check}</h1>
+            <p className="text-white-light">Wallet Address:</p>
+            <a className="text-white-light center">{wallet}</a>
           </Col>
-        }
-    </StandardPage>
+          <Col span={24} className="center margin-top-md">
+            <h1 className="text-white-light">{msg}</h1>
+            <h1 className="text-white-light">{noti}</h1>
+            <button className="btn-submit margin-top-md" onClick={claimASRM} disabled={disableSubmit}>
+              {disableSubmit && <span className="margin-right-sm"> <LoadingOutlined/></span>}
+              Nhận bounty ngay
+            </button>
+            <p className="center text-red">{err}</p>
+          </Col>
+        </Row>
+      :
+        <Row>
+          <Col span={24} className="margin-top-md center">
+            <button className="btn-submit" onClick={claimASRM} disabled={disableSubmit}>
+              {disableSubmit && <span className="margin-right-sm"> <LoadingOutlined/></span>}
+              Nhận bounty ngay
+            </button>
+          </Col>
+          <Col span={24} className="margin-top-md">
+            <h1 className="text-red">{check}</h1>
+          </Col>
+        </Row>
+      }
+    </Col>
   )
 }
 

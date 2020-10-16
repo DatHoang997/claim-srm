@@ -9,22 +9,18 @@
 }
 
 .swap-btn {
-  font-size: 14px;
-  line-height: 12px;
+  font-size: 12px;
+  line-height: 7px;
   padding: 5px 10px;
-  border-radius: 10px;
+  border-radius: 6px;
+  background: #6C72E9;
+  color: $white_color;
+  &:hover {
+    transform: translateY(-12px);
+  }
 
-  &-green {
-    background-color: $green_color;
-    color: white;
-
-    &:hover {
-      transform: translateY(-12px);
-    }
-
-    &:active {
-      transform: translateY(-10px);
-    }
+  &:active {
+    transform: translateY(-10px);
   }
 }
 
@@ -33,20 +29,21 @@
 }
 
 .swap-input {
-  background: #E5E5E5;
-  border: 0.5px solid #BEBEBE;
-  border-radius: 8px;
+  background:rgba(0, 0, 0, 0.5);
+  border: 1px solid #D8D8D8;
+  border-radius: 6px;
+  color: $white_color;
 
   &:hover {
-    border: 1px solid $primary_color;
+    border: 1px solid $white_color;
   }
 
   &:active {
-    border: 1px solid $primary_color;
+    border: 1px solid $white_color;
   }
 
   &:focus {
-    border: 1px solid $primary_color;
-    box-shadow: 0px 0px 2px $primary_color;
+    border: 1px solid $white_color;
+    box-shadow: 0px 0px 2px $white_color;
   }
 }

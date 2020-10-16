@@ -51,8 +51,9 @@ const swap = () => {
   const exchange = async() => {
     // setDisableSubmit(true)
     setErr('')
-    if (srmAddress == '' && srmAmount == '' && asrmAmount == 0) {
-      setErr('fill all input')
+    console.log('srm', srmAddress)
+    if (srmAddress == '' || srmAmount == '' || asrmAmount == 0) {
+      setErr('vui lòng điền đầy đủ thông tin')
       setDisableSubmit(true)
     } else {
       claimAsrmService.swapSRM(asrmAmount, srmAddress, wallet);
@@ -78,24 +79,29 @@ const swap = () => {
   }
 
   const changeSrmAddress = (e) => {
+    setDisableSubmit(false)
     setSrmAddress(e.target.value)
   }
 
   return (
-    <StandardPage>
-      <Row className="margin-top-md">
-        <p>ASRM balance: {thousands(balance, 7)}</p>
-      </Row>
+    <Col span={24}>
       <Row>
-        <Col span={24} className="margin-top-md">
+        <Col span={24}>
+          <div className="margin-top-sm center">
+            <span>
+              <p className="text-white-light">aSRM balance: {thousands(balance, 7)}</p>
+            </span>
+          </div>
+        </Col>
+        <Col span={24} className="margin-top-sm">
           <div className="right-align">
-            <button className="swap-btn swap-btn-green btn-all-in"
+            <button className="swap-btn btn-all-in swap-btn-green"
             onClick={() => {
               setAsrmAmount(balance)
               setSrmAmount(thousands(bigDecimal.multiply(balance, 0.001), 7))
             }
             }>
-              max</button>
+              Max</button>
             <Input
               type="text" className="swap-input" value={asrmAmount}
               onChange={onChangeSRM}>
@@ -103,18 +109,24 @@ const swap = () => {
           </div>
         </Col>
         <Col span={24}>
-          <div className="margin-top-md center exchange_arrow">
+          <div className="margin-top-sm center">
             <span>
               <ArrowDownOutlined />
             </span>
           </div>
         </Col>
       </Row>
-      <Row className="margin-top-md">
+      <Row className="margin-top-sm center">
         <Input type="text" className="swap-input" value={srmAmount}/>
       </Row>
-      <Row className="margin-top-md">
-        <p>SRM address:</p>
+      <Row className="margin-top-sm center">
+        <Col span={24}>
+          <div className="margin-top-sm center">
+            <span>
+              <p className="text-white-light">SRM address:</p>
+            </span>
+          </div>
+        </Col>
       </Row>
       <Row>
         <Input type="text" className="swap-input" onChange={changeSrmAddress} value={srmAddress}/>
@@ -126,7 +138,7 @@ const swap = () => {
           Exchange
         </button>
       </div>
-    </StandardPage>
+    </Col>
   )
 }
 

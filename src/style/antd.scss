@@ -1,10 +1,10 @@
 @import "color";
 
 .ant-layout {
-  background: $background_color;
+  background: $primary_color;
 
   &-content {
-    min-height: 100%;
+    // min-height: 100%;
     margin: 0 100px;
   }
 }
@@ -14,8 +14,8 @@
 }
 
 .ant-picker-focused {
-  border: 1px solid $primary_color !important;
-  box-shadow: 0px 0px 2px $primary_color;
+  border: 1px solid $white_color !important;
+  box-shadow: 0px 0px 2px $white_color;
 }
 
 .ant-date-picker {
@@ -51,24 +51,20 @@
   }
 }
 
-.ant-tabs-tab-btn {
-  color: $primary_color;
-}
-
 .ant-tabs-tab-btn:active {
-  color: $primary_color;
+  color: $white_color;
 }
 
 .ant-tabs-nav {
-  color: $primary_color
-}
-
-.ant-tabs-tab-active {
-  color: $primary_color;
+  color: $white_color
 }
 
 .ant-tabs-ink-bar {
-  background-color: $primary_color;
+  background-color: $white_color;
+}
+
+.ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: $white_color;
 }
 
 .anticon-calendar {
@@ -122,9 +118,9 @@
   }
 
   .ant-layout-content {
-    min-height: 89vh;
+    // min-height: 100vh;
     margin: 0 auto;
-    width: 94%;
+    width: 90%;
   }
 
   .ant-picker-input {
@@ -150,12 +146,8 @@
 
 @media only screen and (max-width: 1200px) {
   .ant-layout-content {
-    min-height: 100%;
+    // min-height: 100%;
     margin: 0 auto;
     width: 90%;
   }
-}
-
-.ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
-  color: $primary_color;
 }

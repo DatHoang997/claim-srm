@@ -77,8 +77,16 @@ a {
 }
 
 .text-white {
-  color: white;
+  &-bold {
+    color: white;
+    font-weight: bold;
+  }
+  &-light {
+    color: white;
+    font-weight: 100;
+  }
 }
+
 
 .text-gray {
   color: $gray
