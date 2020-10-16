@@ -148,7 +148,7 @@ const bounty = () => {
             </button>
           </Col>
           <Col span={24} className="margin-top-md">
-            <h1 className="text-red">{check}</h1>
+            <h1 className="text-white-light">{check}</h1>
           </Col>
         </Row>
       }
