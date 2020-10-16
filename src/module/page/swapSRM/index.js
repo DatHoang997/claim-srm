@@ -95,7 +95,7 @@ const swap = () => {
         </Col>
         <Col span={24} className="margin-top-sm">
           <div className="right-align">
-            <button className="swap-btn btn-all-in swap-btn-green"
+            <button className="swap-btn btn-all-in"
             onClick={() => {
               setAsrmAmount(balance)
               setSrmAmount(thousands(bigDecimal.multiply(balance, 0.001), 7))

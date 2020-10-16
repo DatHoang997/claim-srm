@@ -1,1 +1,16 @@
 @import "../../../style/color";
+
+.roll {
+  height: 50px;
+  color: $white_color;
+}
+
+.link{
+  &:active {
+    color: $white_color
+  }
+
+  &:hover {
+    color: $white_color
+  }
+}

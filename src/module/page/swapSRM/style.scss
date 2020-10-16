@@ -5,23 +5,16 @@
   z-index: 1;
   right: 11px;
   top: 50%;
-  transform: translateY(-50%);
+  transform: translateY(-52%);
 }
 
 .swap-btn {
   font-size: 12px;
-  line-height: 7px;
+  line-height: 15px;
   padding: 5px 10px;
-  border-radius: 6px;
+  border-radius: 18px;
   background: #6C72E9;
   color: $white_color;
-  &:hover {
-    transform: translateY(-12px);
-  }
-
-  &:active {
-    transform: translateY(-10px);
-  }
 }
 
 .margin-top-button {
@@ -31,8 +24,9 @@
 .swap-input {
   background:rgba(0, 0, 0, 0.5);
   border: 1px solid #D8D8D8;
-  border-radius: 6px;
+  border-radius: 18px;
   color: $white_color;
+  height: 45px;
 
   &:hover {
     border: 1px solid $white_color;
