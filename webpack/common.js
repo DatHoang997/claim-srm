@@ -45,7 +45,6 @@ module.exports = {
           name: 'antd',
           enforce: true
         },
-
         moment: {
           test: /[\\/]node_modules[\\/](moment)[\\/]/,
           priority: -8,
