@@ -23,7 +23,6 @@ const bounty = () => {
   const claimAsrmService = new ClaimAsrmService()
   let myVar
   let alpha = ''
-  let beta = ''
 
   useEffect(() => {
     myVar = setTimeout(go, 5000)
@@ -36,7 +35,7 @@ const bounty = () => {
     if (serverResponse) {
       setDisableSubmit(false)
     }
-    if (serverResponse.status == 1) {
+    if (serverResponse.message == 'claim') {
       claimAsrmService.response(psId)
       message.success('Chúng tôi đã chuyển 300 aSRM, vui lòng quay lại ví nếu bạn muốn kiểm tra')
       setNoti('')
@@ -112,7 +111,6 @@ const bounty = () => {
       }
       if (name == 'ps_id' && name == cookiePair[0].trim()) {
         setPsId(decodeURIComponent(cookiePair[1]))
-        beta = decodeURIComponent(cookiePair[1])
       }
     }
   }

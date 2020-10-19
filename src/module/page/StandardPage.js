@@ -6,13 +6,13 @@ import Footer from '../layout/Footer'
 const BasePage = (props) => {
   return (
     <Layout className="p_standardPage">
-      <Row>
+      <Row className="layout">
         {/* <Col xs={{span: 24}} sm={{span: 24}} lg={{span: 24}} xl={{span: 24}} xxl={{span: 24}}>
           {
             props.noHeader ? '' : <Header/>
           }
         </Col> */}
-        <Col xs={{span: 24}} sm={{span: 24}} md={{span: 24}} lg={{span: 24}} xl={{span: 24}} xxl={{span: 24}} className="background bottom-home">
+        <Col xs={{span: 24}} sm={{span: 24}} md={{span: 24}} lg={{span: 24}} xl={{span: 24}} xxl={{span: 24}} className="blur">
           {/* <div className='bottom-home'/> */}
           <Layout.Content>
           <div className="main-content">

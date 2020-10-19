@@ -16,8 +16,8 @@ const prodEnv = {
   NODE_ENV: JSON.stringify('production'),
   PLATFORM_ENV: JSON.stringify('web'),
   SERVER_URL: JSON.stringify('https://api-bounty.ezdefi.com/api'),
-  ASRM_POOL: JSON.stringify('0x6dd6A324909814DD62C4d26E66185469D95C449D'),
-  ASRM_CONTRACT_ADDRESS: JSON.stringify('0x14cCf9F6653Eac614a377eE827f0520601D3e68C'),
+  ASRM_POOL: JSON.stringify('0x1a3A8b3aF5A5F5DD9A338A16E19469E4fA36AB39'),
+  ASRM_CONTRACT_ADDRESS: JSON.stringify('0xD8cD9DCB9129afd033b6C75b23C65DC5fCdcd022'),
 };
 
 const stagingEnv = {

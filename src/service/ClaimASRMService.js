@@ -114,11 +114,11 @@ export default class extends BaseService {
     let that = this
     const web3 = new Web3(window.ethereum)
     const claimASRMRedux = this.store.getRedux('claimASRM')
-    let contract = new web3.eth.Contract(AsrmContract.abi, '0x14ccf9f6653eac614a377ee827f0520601d3e68c')
+    let contract = new web3.eth.Contract(AsrmContract.abi, process.env.ASRM_CONTRACT_ADDRESS)
     await window.web3.eth.getAccounts(async (err, accounts) => {
       if (err) return err
       let balance = await contract.methods.balanceOf(accounts[0]).call({ from: accounts[0] })
-      console.log(weiToPOC(balance))
+      console.log(balance)
       that.dispatch(claimASRMRedux.actions.balance_update(weiToPOC(balance)))
     })
   }

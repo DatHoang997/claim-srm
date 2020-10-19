@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from "react-redux"
 import StandardPage from '../StandardPage'
-import { Input, Row, Col, Button } from 'antd'
+import { Input, Row, Col, Button, message } from 'antd'
 import ClaimAsrmService from '@/service/ClaimASRMService'
 import { LoadingOutlined } from '@ant-design/icons'
 import {thousands, weiToPOC, hideAddress, hideLink, pocToWei, usdtToWei, weiToUSDT} from '@/util/help.js'
@@ -33,12 +33,17 @@ const swap = () => {
     claimAsrmService.asrmBalance()
   }, [])
 
+
   useEffect(() => {
     if (serverResponse) {
       setDisableSubmit(false)
       setAsrmAmount('')
       setSrmAddress('')
       setSrmAmount(0)
+    }
+    if (serverResponse.message == 'swap success') {
+      message.success('Chuyển thành công SRM')
+      setDisableSubmit(true)
     }
   }, [serverResponse])
 
@@ -57,6 +62,7 @@ const swap = () => {
       setDisableSubmit(true)
     } else {
       claimAsrmService.swapSRM(asrmAmount, srmAddress, wallet);
+      setDisableSubmit(true)
     }
   }
 
@@ -104,40 +110,48 @@ const swap = () => {
               Max</button>
             <Input
               type="text" className="swap-input" value={asrmAmount}
-              onChange={onChangeSRM}>
+              onChange={onChangeSRM} placeholder="Số aSRM sẽ chuyển">
             </Input>
           </div>
         </Col>
         <Col span={24}>
           <div className="margin-top-sm center">
-            <span>
+            <span className="swap-icon">
               <ArrowDownOutlined />
             </span>
           </div>
         </Col>
       </Row>
-      <Row className="margin-top-sm center">
-        <Input type="text" className="swap-input" value={srmAmount}/>
-      </Row>
-      <Row className="margin-top-sm center">
-        <Col span={24}>
+      <Row className="center">
+      <Col span={24}>
           <div className="margin-top-sm center">
             <span>
-              <p className="text-white-light">Địa chỉ SRM:</p>
+              <p className="text-white-light">Số SRM nhận được: {thousands(srmAmount, 7)}</p>
             </span>
           </div>
         </Col>
       </Row>
       <Row>
-        <Input type="text" className="swap-input margin-top-sm" onChange={changeSrmAddress} value={srmAddress}/>
+        <Input type="text" className="swap-input margin-top-sm" onChange={changeSrmAddress} value={srmAddress} placeholder="Địa chỉ SRM"/>
       </Row>
-      <p className="center text-red">{err}</p>
-      <div className="center margin-top-button margin-bot-md">
-        <button className="btn-submit" onClick={exchange} disabled={disableSubmit}>
-          {disableSubmit && <span className="margin-right-sm"> <LoadingOutlined/></span>}
-          Exchange
-        </button>
-      </div>
+      { err ?
+            <div className="center">
+              <p className="center text-red margin-top-err">{err}</p>
+              <button className="btn-submit" onClick={exchange} disabled={disableSubmit}>
+                {disableSubmit && <span className="margin-right-sm"> <LoadingOutlined/></span>}
+                Exchange
+              </button>
+            </div>
+        :
+
+            <div className="center margin-top-button">
+              <button className="btn-submit" onClick={exchange} disabled={disableSubmit}>
+                {disableSubmit && <span className="margin-right-sm"> <LoadingOutlined/></span>}
+                Thực hiện
+              </button>
+            </div>
+
+      }
     </Col>
   )
 }
