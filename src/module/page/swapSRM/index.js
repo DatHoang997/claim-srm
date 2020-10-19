@@ -43,7 +43,7 @@ const swap = () => {
     }
     if (serverResponse.message == 'swap success') {
       message.success('Chuyển thành công SRM')
-      setDisableSubmit(true)
+      setDisableSubmit(false)
     }
   }, [serverResponse])
 
