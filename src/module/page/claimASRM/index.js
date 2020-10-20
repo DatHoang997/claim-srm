@@ -21,7 +21,8 @@ const bounty = () => {
         [msg, setMsg] = useState(''),
         [noti, setNoti] = useState(''),
         [claimed, setClaimed] = useState(''),
-        [formLinkSent, setFormLinkSent] = useState(false)
+        [formLinkSent, setFormLinkSent] = useState(false),
+        [formLinkSending, setFormLinkSending] = useState(false)
 
   const claimAsrmService = new ClaimAsrmService()
   let myVar
@@ -117,14 +118,14 @@ const bounty = () => {
   }
 
   const sendFormLink = async () => {
-    setDisableSubmit(true)
+    setFormLinkSending(true)
     axios.post(`${process.env.SERVER_URL}/user/send_form`, {
       fbId: fbId
     }).then(function(response) {
       setFormLinkSent(true)
-      setDisableSubmit(false)
+      setFormLinkSending(false)
     }).catch(function(error) {
-      setDisableSubmit(false)
+      setFormLinkSending(false)
       return;
     });
   }
@@ -173,8 +174,8 @@ const bounty = () => {
                 { (formLinkSent == true) ? 
                   <div className="text-white-light">Vui lòng kiểm tra inbox để xem link điền thông tin.</div>
                   :
-                  <button className="btn-submit margin-top-md" onClick={sendFormLink} disabled={disableSubmit}>
-                    {(disableSubmit == true) ?
+                  <button className="btn-submit margin-top-md" onClick={sendFormLink} disabled={formLinkSending}>
+                    {(formLinkSending == true) ?
                       <span className="text-white-bold"> <LoadingOutlined/></span>
                       :
                       <span>Tham gia</span>
