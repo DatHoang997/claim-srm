@@ -19,10 +19,10 @@ const home = () => {
   return (
     <StandardPage>
       <div>
-        <div className="center">
+        <div className="center margin-top-md">
           <img src="../../../assets/images/ezdefi.svg" alt=""/>
         </div>
-        <h4 className="center text-white-bold padding-bottom margin-top-md">ezDefi Bounty tặng ngay 300aSRM và cơ hội trúng Iphone 11 Pro Max khi người dùng sử dụng ezDefi wallet</h4>
+        <h4 className="center text-white-bold padding-bottom margin-top-md">ezDeFi Bounty tặng ngay 300aSRM và cơ hội trúng Iphone 11 Pro Max khi người dùng sử dụng ezDeFi Wallet</h4>
         <Tabs>
           <TabPane tab='Nhận aSRM' key="1">
             <Bounty/>
