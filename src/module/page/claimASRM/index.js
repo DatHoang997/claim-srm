@@ -63,6 +63,7 @@ const bounty = () => {
     if (alpha) {
       setDisableSubmit(false)
       let data = await claimAsrmService.getUerData(alpha)
+      console.log('data', data)
       if (data.data.data == true) {
         setCheck(
           <div className="center">
@@ -70,8 +71,15 @@ const bounty = () => {
           </div>
         )
       }
+      if (data.data.data == false) {
+        console.log('falseeeeeeeeeeeeeee')
+        setDisableSubmit(false)
+        setNoti(
+          <p>Mời bạn ấn nhấn nút "Nhận bounty ngay" để chúng tôi chuyển tới bạn 300 aSRM</p>
+        )
+      }
 
-      if (data.data.data == false || data.data.message == 'not found fb_id') {
+      if (data.data.message == 'not found fb_id') {
         console.log(data.data)
         setNoti(
           <div>
@@ -119,6 +127,8 @@ const bounty = () => {
       }
     }
   }
+  console.log('check', check)
+  console.log('noti', noti)
 
   return (
     <Col span={24}>
@@ -129,16 +139,20 @@ const bounty = () => {
             <p className="text-white-light center">{wallet}</p>
           </Col>
           <Col span={24} className="center margin-top-md">
+            <div className="text-white-light">{noti}</div>
+          </Col>
+          <Col span={24} className="center margin-top-md">
             <h1 className="text-white-light">{msg}</h1>
-            <h1 className="text-white-light">{noti}</h1>
             { (msg == '') ?
-              <button className="btn-submit margin-top-md" onClick={claimASRM} disabled={disableSubmit}>
+              <div>
                 {(disableSubmit == true) ?
-                  <span> <LoadingOutlined/></span>
+                  <span className="text-white-bold"> <LoadingOutlined/></span>
                   :
-                  <span>Nhận bounty ngay</span>
+                  <button className="btn-submit margin-top-md" onClick={claimASRM} disabled={disableSubmit}>
+                    <span>Nhận bounty ngay</span>
+                  </button>
                 }
-              </button>
+              </div>
             :
               <p className='roll margin-top-md'><a className="link btn-submit margin-top-md" target='_blank' href='https://m.me/1795330330742938?ref=.f.5f856318817b370012f33e4a'>Tham gia</a></p>
             }
@@ -147,19 +161,6 @@ const bounty = () => {
         </Row>
       :
         <Row>
-          <Col span={24} className="margin-top-md center">
-            { (claimed) ?
-              <button className="btn-submit" onClick={claimASRM} disabled={disableSubmit}>
-                {(disableSubmit == true) ?
-                  <span> <LoadingOutlined/></span>
-                  :
-                  <span>Nhận bounty ngay</span>
-                }
-              </button>
-            :
-              <div></div>
-            }
-          </Col>
           <Col span={24} className="margin-top-md">
             <h1 className="text-white-light">{check}</h1>
           </Col>
