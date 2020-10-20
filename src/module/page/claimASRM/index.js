@@ -7,6 +7,7 @@ import { LoadingOutlined } from '@ant-design/icons'
 import 'antd/dist/antd.css';
 import './style.scss'
 import {setupWeb3} from "../../../util/auth";
+import axios from 'axios'
 
 const bounty = () => {
   const serverResponse = useSelector(state => state.claimASRM.serverResponse),
@@ -19,7 +20,8 @@ const bounty = () => {
         [check, setCheck] = useState(''),
         [msg, setMsg] = useState(''),
         [noti, setNoti] = useState(''),
-        [claimed, setClaimed] = useState('')
+        [claimed, setClaimed] = useState(''),
+        [formLinkSent, setFormLinkSent] = useState(false)
 
   const claimAsrmService = new ClaimAsrmService()
   let myVar
@@ -114,6 +116,19 @@ const bounty = () => {
     }
   }
 
+  const sendFormLink = async () => {
+    setDisableSubmit(true)
+    axios.post(`${process.env.SERVER_URL}/user/send_form`, {
+      fbId: fbId
+    }).then(function(response) {
+      setFormLinkSent(true)
+      setDisableSubmit(false)
+    }).catch(function(error) {
+      setDisableSubmit(false)
+      return;
+    });
+  }
+
   const getCookie = (name) => {
     var cookieArr = document.cookie.split(";");
     for (var i = 0; i < cookieArr.length; i++) {
@@ -154,7 +169,19 @@ const bounty = () => {
                 }
               </div>
             :
-              <p className='roll margin-top-md'><a className="link btn-submit margin-top-md" target='_blank' href='https://m.me/1795330330742938?ref=.f.5f856318817b370012f33e4a'>Tham gia</a></p>
+              <div>
+                { (formLinkSent == true) ? 
+                  <div className="text-white-light">Vui lòng kiểm tra inbox để xem link điền thông tin.</div>
+                  :
+                  <button className="btn-submit margin-top-md" onClick={sendFormLink} disabled={disableSubmit}>
+                    {(disableSubmit == true) ?
+                      <span className="text-white-bold"> <LoadingOutlined/></span>
+                      :
+                      <span>Tham gia</span>
+                    }
+                  </button>
+                }
+              </div>
             }
             <p className='text-white-light'>{err}</p>
           </Col>
