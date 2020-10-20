@@ -18,7 +18,8 @@ const bounty = () => {
         [disableSubmit, setDisableSubmit] = useState(true),
         [check, setCheck] = useState(''),
         [msg, setMsg] = useState(''),
-        [noti, setNoti] = useState('')
+        [noti, setNoti] = useState(''),
+        [claimed, setClaimed] = useState('')
 
   const claimAsrmService = new ClaimAsrmService()
   let myVar
@@ -43,6 +44,7 @@ const bounty = () => {
         <p>Nhận bounty thành công. Bạn có muốn tiếp tục tham gia chương trình vòng quay may mắn trúng thưởng với cơ hội trúng thưởng iPhone 11 Pro Max</p>
       )
       setDisableSubmit(true)
+      setClaimed(true)
     }
     if (serverResponse.message === "already claimed") {
       setErr("Bạn đã được nhận thưởng")
@@ -56,26 +58,37 @@ const bounty = () => {
   }, [signatureResponse])
 
   const go = async() => {
-    getCookie('ps_id')
-    getCookie('fb_id')
+    getCookie('subid')
+    getCookie('_ezdref')
     if (alpha) {
       setDisableSubmit(false)
       let data = await claimAsrmService.getUerData(alpha)
+      console.log('data', data)
       if (data.data.data == true) {
         setCheck(
-          <div>
-            <p className='err'>Bạn chưa đủ điều kiện tham gia vì một trong những lý do sau:</p>
-            <p className='err'>- Chương trình chỉ áp dụng cho người mới sử dụng ứng dụng ezDeFi</p>
-            <p className='err'>- Chương trình chỉ áp dụng sau khi bạn đã comment và tag đủ 05 người bạn trên fanpgage</p>
-            <p className='err'>- Có gián đoạn xảy ra khi bạn tham gia chương trình</p>
-            <p className='err'>Vui lòng gỡ ứng dụng và click và đường link chúng tôi đã gửi cho bạn qua Messenger</p>
+          <div className="center">
+            <p>Bạn đã nhận bounty</p>
           </div>
         )
       }
-
       if (data.data.data == false) {
+        console.log('falseeeeeeeeeeeeeee')
+        setDisableSubmit(false)
+        setNoti(
+          <p>Mời bạn ấn nhấn nút "Nhận bounty ngay" để chúng tôi chuyển tới bạn 300 aSRM</p>
+        )
+      }
+
+      if (data.data.message == 'not found fb_id') {
         console.log(data.data)
-        setNoti(<p>Mời bạn nhấn nút 'Nhận bounty ngay' để chúng tôi chuyển tới bạn 300 aSRM</p>)
+        setNoti(
+          <div>
+            <p>Bạn chưa đủ điều kiện tham gia vì một trong những lý do sau:</p>
+            <p>- Chương trình chỉ áp dụng cho người mới sử dụng ứng dụng ezDeFi</p>
+            <p>- Chương trình chỉ áp dụng sau khi bạn đã comment và tag đủ 05 người bạn trên fanpgage</p>
+            <p>- Có gián đoạn xảy ra khi bạn tham gia chương trình</p>
+            <p>Vui lòng gỡ ứng dụng và click và đường link chúng tôi đã gửi cho bạn qua Messenger</p>
+          </div>)
       }
       setDisableSubmit(data.data.data)
     }
@@ -83,11 +96,11 @@ const bounty = () => {
       setDisableSubmit(true)
       setErr(
         <div>
-          <p className='err'>Bạn chưa đủ điều kiện tham gia vì một trong những lý do sau:</p>
-          <p className='err'>- Chương trình chỉ áp dụng cho người mới sử dụng ứng dụng ezDeFi</p>
-          <p className='err'>- Chương trình chỉ áp dụng sau khi bạn đã comment và tag đủ 05 người bạn trên fanpgage</p>
-          <p className='err'>- Có gián đoạn xảy ra khi bạn tham gia chương trình</p>
-          <p className='err'>Vui lòng gỡ ứng dụng và click và đường link chúng tôi đã gửi cho bạn qua Messenger</p>
+          <p>Bạn chưa đủ điều kiện tham gia vì một trong những lý do sau:</p>
+          <p>- Chương trình chỉ áp dụng cho người mới sử dụng ứng dụng ezDeFi</p>
+          <p>- Chương trình chỉ áp dụng sau khi bạn đã comment và tag đủ 05 người bạn trên fanpgage</p>
+          <p>- Có gián đoạn xảy ra khi bạn tham gia chương trình</p>
+          <p>Vui lòng gỡ ứng dụng và click và đường link chúng tôi đã gửi cho bạn qua Messenger</p>
         </div>
       )
     }
@@ -105,15 +118,17 @@ const bounty = () => {
     var cookieArr = document.cookie.split(";");
     for (var i = 0; i < cookieArr.length; i++) {
       var cookiePair = cookieArr[i].split("=");
-      if (name == 'fb_id' && '_ezdref' == cookiePair[0].trim()) {
+      if (name == '_ezdref' && name == cookiePair[0].trim()) {
         setFbId(decodeURIComponent(cookiePair[1]))
         alpha = decodeURIComponent(cookiePair[1])
       }
-      if (name == 'ps_id' && 'subid' == cookiePair[0].trim()) {
+      if (name == 'subid' && name == cookiePair[0].trim()) {
         setPsId(decodeURIComponent(cookiePair[1]))
       }
     }
   }
+  console.log('check', check)
+  console.log('noti', noti)
 
   return (
     <Col span={24}>
@@ -121,30 +136,31 @@ const bounty = () => {
         <Row>
           <Col span={24} className="center margin-top-md">
             <p className="text-white-light">Wallet Address:</p>
-            <a className="text-white-light center">{wallet}</a>
+            <p className="text-white-light center">{wallet}</p>
+          </Col>
+          <Col span={24} className="center margin-top-md">
+            <div className="text-white-light">{noti}</div>
           </Col>
           <Col span={24} className="center margin-top-md">
             <h1 className="text-white-light">{msg}</h1>
-            <h1 className="text-white-light">{noti}</h1>
             { (msg == '') ?
-              <button className="btn-submit margin-top-md" onClick={claimASRM} disabled={disableSubmit}>
-                {disableSubmit && <span className="margin-right-sm"> <LoadingOutlined/></span>}
-                Nhận bounty ngay
-              </button>
+              <div>
+                {(disableSubmit == true) ?
+                  <span className="text-white-bold"> <LoadingOutlined/></span>
+                  :
+                  <button className="btn-submit margin-top-md" onClick={claimASRM} disabled={disableSubmit}>
+                    <span>Nhận bounty ngay</span>
+                  </button>
+                }
+              </div>
             :
               <p className='roll margin-top-md'><a className="link btn-submit margin-top-md" target='_blank' href='https://m.me/1795330330742938?ref=.f.5f856318817b370012f33e4a'>Tham gia</a></p>
             }
-            <p className="center text-red">{err}</p>
+            <p className='text-white-light'>{err}</p>
           </Col>
         </Row>
       :
         <Row>
-          <Col span={24} className="margin-top-md center">
-            <button className="btn-submit" onClick={claimASRM} disabled={disableSubmit}>
-              {disableSubmit && <span className="margin-right-sm"> <LoadingOutlined/></span>}
-              Nhận bounty ngay
-            </button>
-          </Col>
           <Col span={24} className="margin-top-md">
             <h1 className="text-white-light">{check}</h1>
           </Col>

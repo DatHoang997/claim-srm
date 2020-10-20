@@ -139,7 +139,7 @@ const swap = () => {
               <p className="center text-red margin-top-err">{err}</p>
               <button className="btn-submit" onClick={exchange} disabled={disableSubmit}>
                 {disableSubmit && <span className="margin-right-sm"> <LoadingOutlined/></span>}
-                Exchange
+                Thực hiện
               </button>
             </div>
         :
