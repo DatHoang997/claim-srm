@@ -172,7 +172,7 @@ const bounty = () => {
             :
               <div>
                 { (formLinkSent == true) ? 
-                  <div className="text-white-light">Vui lòng kiểm tra inbox để xem link điền thông tin.</div>
+                  <div className="text-white-light">Vui lòng kiểm tra inbox để lấy link tham gia vòng quay.</div>
                   :
                   <button className="btn-submit margin-top-md" onClick={sendFormLink} disabled={formLinkSending}>
                     {(formLinkSending == true) ?
