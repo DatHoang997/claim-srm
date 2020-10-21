@@ -119,7 +119,7 @@ const bounty = () => {
 
   const sendFormLink = async () => {
     setFormLinkSending(true)
-    axios.post(`${process.env.SERVER_URL}/user/send_form`, {
+    axios.post(`${process.env.SERVER_URL}/user/send_lucky_wheel`, {
       fbId: fbId
     }).then(function(response) {
       setFormLinkSent(true)
