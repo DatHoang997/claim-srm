@@ -105,6 +105,7 @@ export default class extends BaseService {
   async getUerData(fb_id) {
     try {
       let response = await axios.get(API.GET_USER + fb_id)
+      console.log('@@@@@@@@@@@@@@@',response)
       return response;
     } catch (error) {
       console.log('err', error)

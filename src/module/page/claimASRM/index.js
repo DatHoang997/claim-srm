@@ -18,6 +18,7 @@ const bounty = () => {
         [disableSubmit, setDisableSubmit] = useState(true),
         [check, setCheck] = useState(''),
         [msg, setMsg] = useState(''),
+        [click, setClick] = useState(''),
         [noti, setNoti] = useState(''),
         [claimed, setClaimed] = useState('')
 
@@ -56,7 +57,7 @@ const bounty = () => {
       setDisableSubmit(false)
     }
   }, [signatureResponse])
-
+console.log('message',msg)
   const go = async() => {
     getCookie('subid')
     getCookie('_ezdref')
@@ -72,9 +73,8 @@ const bounty = () => {
         )
       }
       if (data.data.data == false) {
-        console.log('falseeeeeeeeeeeeeee')
         setDisableSubmit(false)
-        setMsg(
+        setClick(
           <p>Mời bạn ấn nhấn nút "Nhận bounty ngay" để chúng tôi chuyển tới bạn 300 aSRM</p>
         )
       }
@@ -140,6 +140,9 @@ const bounty = () => {
           </Col>
           <Col span={24} className="margin-top-md">
             <div className="text-white-light">{noti}</div>
+          </Col>
+          <Col span={24} className="margin-top-md center">
+            <div className="text-white-light">{click}</div>
           </Col>
           <Col span={24} className="center margin-top-md">
             <h1 className="text-white-light">{msg}</h1>
