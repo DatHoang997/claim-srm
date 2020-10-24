@@ -86,6 +86,7 @@ const swap = () => {
 
   const changeSrmAddress = (e) => {
     setDisableSubmit(false)
+    setErr('')
     setSrmAddress(e.target.value)
   }
 
@@ -135,21 +136,21 @@ const swap = () => {
         <Input type="text" className="swap-input margin-top-sm" onChange={changeSrmAddress} value={srmAddress} placeholder="Địa chỉ SRM"/>
       </Row>
       { err ?
-            <div className="center">
-              <p className="center text-red margin-top-err">{err}</p>
-              <button className="btn-submit" onClick={exchange} disabled={disableSubmit}>
-                {disableSubmit && <span className="margin-right-sm"> <LoadingOutlined/></span>}
-                Thực hiện
-              </button>
-            </div>
+          <div className="center">
+            <p className="center text-red margin-top-err">{err}</p>
+            <button className="btn-submit" onClick={exchange} disabled={disableSubmit}>
+              {disableSubmit && <span className="margin-right-sm"> <LoadingOutlined/></span>}
+              Thực hiện
+            </button>
+          </div>
         :
 
-            <div className="center margin-top-button">
-              <button className="btn-submit" onClick={exchange} disabled={disableSubmit}>
-                {disableSubmit && <span className="margin-right-sm"> <LoadingOutlined/></span>}
-                Thực hiện
-              </button>
-            </div>
+          <div className="center margin-top-button">
+            <button className="btn-submit" onClick={exchange} disabled={disableSubmit}>
+              {disableSubmit && <span className="margin-right-sm"> <LoadingOutlined/></span>}
+              Thực hiện
+            </button>
+          </div>
 
       }
     </Col>

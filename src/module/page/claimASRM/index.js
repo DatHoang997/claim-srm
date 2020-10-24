@@ -74,13 +74,14 @@ const bounty = () => {
       if (data.data.data == false) {
         console.log('falseeeeeeeeeeeeeee')
         setDisableSubmit(false)
-        setNoti(
+        setMsg(
           <p>Mời bạn ấn nhấn nút "Nhận bounty ngay" để chúng tôi chuyển tới bạn 300 aSRM</p>
         )
       }
-
+      setDisableSubmit(data.data.data)
       if (data.data.message == 'not found fb_id') {
         console.log(data.data)
+        setDisableSubmit(true)
         setNoti(
           <div>
             <p>Bạn chưa đủ điều kiện tham gia vì một trong những lý do sau:</p>
@@ -90,7 +91,6 @@ const bounty = () => {
             <p>Vui lòng gỡ ứng dụng và click và đường link chúng tôi đã gửi cho bạn qua Messenger</p>
           </div>)
       }
-      setDisableSubmit(data.data.data)
     }
     if (!alpha) {
       setDisableSubmit(true)
@@ -138,7 +138,7 @@ const bounty = () => {
             <p className="text-white-light">Wallet Address:</p>
             <p className="text-white-light center">{wallet}</p>
           </Col>
-          <Col span={24} className="center margin-top-md">
+          <Col span={24} className="margin-top-md">
             <div className="text-white-light">{noti}</div>
           </Col>
           <Col span={24} className="center margin-top-md">

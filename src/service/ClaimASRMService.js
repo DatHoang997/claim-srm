@@ -81,7 +81,8 @@ export default class extends BaseService {
           that.dispatch(claimASRMRedux.actions.serverResponse_update(error))
         }
       }).catch(err => {
-        that.dispatch(exchangeRedux.actions.serverResponse_update(err))
+        console.log('ERR', err)
+        that.dispatch(claimASRMRedux.actions.signatureResponse_update(err))
       })
     })
     .catch(err => {
