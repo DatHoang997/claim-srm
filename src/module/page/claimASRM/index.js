@@ -41,6 +41,7 @@ const bounty = () => {
       claimAsrmService.response(psId)
       message.success('Chúng tôi đã chuyển 300 aSRM, vui lòng quay lại ví nếu bạn muốn kiểm tra')
       setNoti('')
+      setClick('')
       setMsg(
         <p>Nhận bounty thành công. Bạn có muốn tiếp tục tham gia chương trình vòng quay may mắn trúng thưởng với cơ hội trúng thưởng iPhone 11 Pro Max</p>
       )
