@@ -6,6 +6,7 @@ import Bounty from '../claimASRM/index'
 import Swap from '../swapSRM/index'
 import 'antd/dist/antd.css';
 import './style.scss'
+import LuckyWheel from '../../../components/LuckyWheel'
 
 const {TabPane} = Tabs;
 
@@ -29,6 +30,9 @@ const home = () => {
           </TabPane>
           <TabPane tab='Chuyển SRM' key="2">
             <Swap/>
+          </TabPane>
+          <TabPane tab="Vòng quay may mắn" key="3">
+            <LuckyWheel />
           </TabPane>
         </Tabs>
       </div>

@@ -8,6 +8,7 @@ import 'antd/dist/antd.css';
 import './style.scss'
 import {setupWeb3} from "../../../util/auth";
 import axios from 'axios'
+import LuckyWheel from '../../../components/LuckyWheel'
 
 const bounty = () => {
   const serverResponse = useSelector(state => state.claimASRM.serverResponse),
