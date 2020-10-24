@@ -58,14 +58,12 @@ const bounty = () => {
       setDisableSubmit(false)
     }
   }, [signatureResponse])
-console.log('message',msg)
   const go = async() => {
     getCookie('subid')
     getCookie('_ezdref')
     if (alpha) {
       setDisableSubmit(false)
       let data = await claimAsrmService.getUerData(alpha)
-      console.log('data', data)
       if (data.data.data == true) {
         setCheck(
           <div className="center">
@@ -81,7 +79,6 @@ console.log('message',msg)
       }
       setDisableSubmit(data.data.data)
       if (data.data.message == 'not found fb_id') {
-        console.log(data.data)
         setDisableSubmit(true)
         setNoti(
           <div>
@@ -128,8 +125,6 @@ console.log('message',msg)
       }
     }
   }
-  console.log('check', check)
-  console.log('noti', noti)
 
   return (
     <Col span={24}>
@@ -168,6 +163,13 @@ console.log('message',msg)
           <Col span={24} className="margin-top-md">
             <h1 className="text-white-light">{check}</h1>
           </Col>
+          <Col span={24} className="center margin-top-md center">
+            <p className="text-white-light">Nhận bounty thành công. Bạn có muốn tiếp tục tham gia chương trình vòng quay may mắn trúng thưởng với cơ hội trúng thưởng iPhone 11 Pro Max</p>
+          </Col>
+          <Col span={24} className="margin-top-md center">
+            <p className='roll margin-top-md'><a className="link btn-submit margin-top-md" target='_blank' href='https://m.me/1795330330742938?ref=.f.5f856318817b370012f33e4a'>Tham gia</a></p>
+          </Col>
+
         </Row>
       }
     </Col>

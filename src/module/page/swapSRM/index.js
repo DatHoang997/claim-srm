@@ -56,12 +56,11 @@ const swap = () => {
   const exchange = async() => {
     // setDisableSubmit(true)
     setErr('')
-    console.log('srm', srmAddress)
     if (srmAddress == '' || srmAmount == '' || asrmAmount == 0) {
       setErr('vui lòng điền đầy đủ thông tin')
       setDisableSubmit(true)
     } else {
-      claimAsrmService.swapSRM(asrmAmount, srmAddress, wallet);
+      await claimAsrmService.swapSRM(asrmAmount, srmAddress, wallet);
       setDisableSubmit(true)
     }
   }
@@ -69,7 +68,6 @@ const swap = () => {
   const onChangeSRM = (e) => {
     setErr('')
     setDisableSubmit(false)
-    console.log(e.target.value)
     setAsrmAmount(e.target.value)
     if(regexp.NUM.test(e.target.value)) {
       setSrmAmount(thousands(bigDecimal.multiply(e.target.value, 0.001), 7))
@@ -138,7 +136,7 @@ const swap = () => {
       { err ?
           <div className="center">
             <p className="center text-red margin-top-err">{err}</p>
-            <button className="btn-submit" onClick={exchange} disabled={disableSubmit}>
+            <button className="btn-submit margin-top-err-btn" onClick={exchange} disabled={disableSubmit}>
               {disableSubmit && <span className="margin-right-sm"> <LoadingOutlined/></span>}
               Thực hiện
             </button>
@@ -151,7 +149,6 @@ const swap = () => {
               Thực hiện
             </button>
           </div>
-
       }
     </Col>
   )

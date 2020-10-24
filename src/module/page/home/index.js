@@ -4,6 +4,7 @@ import { Tabs } from 'antd'
 import ClaimAsrmService from '@/service/ClaimASRMService'
 import Bounty from '../claimASRM/index'
 import Swap from '../swapSRM/index'
+import Form from '../bountyForm/index'
 import 'antd/dist/antd.css';
 import './style.scss'
 
@@ -29,6 +30,9 @@ const home = () => {
           </TabPane>
           <TabPane tab='Chuyển SRM' key="2">
             <Swap/>
+          </TabPane>
+          <TabPane tab='Thông tin nhận thưởng' key="3">
+            <Form/>
           </TabPane>
         </Tabs>
       </div>
