@@ -23,7 +23,9 @@ const bounty = () => {
         [noti, setNoti] = useState(''),
         [claimed, setClaimed] = useState(''),
         [formLinkSent, setFormLinkSent] = useState(false),
-        [formLinkSending, setFormLinkSending] = useState(false)
+        [formLinkSending, setFormLinkSending] = useState(false),
+        [spinNumber, setSpinNumber] = useState(null),
+        [user, setUser] = useState(null)
 
   const claimAsrmService = new ClaimAsrmService()
   let myVar
@@ -64,39 +66,8 @@ const bounty = () => {
   const go = async() => {
     getCookie('subid')
     getCookie('_ezdref')
-    if (alpha) {
-      setDisableSubmit(false)
-      let data = await claimAsrmService.getUerData(alpha)
-      console.log('data', data)
-      if (data.data.data == true) {
-        setCheck(
-          <div className="center">
-            <p>Bạn đã nhận bounty</p>
-          </div>
-        )
-      }
-      if (data.data.data == false) {
-        console.log('falseeeeeeeeeeeeeee')
-        setDisableSubmit(false)
-        setNoti(
-          <p>Mời bạn ấn nhấn nút "Nhận bounty ngay" để chúng tôi chuyển tới bạn 300 aSRM</p>
-        )
-      }
 
-      if (data.data.message == 'not found fb_id') {
-        console.log(data.data)
-        setNoti(
-          <div>
-            <p>Bạn chưa đủ điều kiện tham gia vì một trong những lý do sau:</p>
-            <p>- Chương trình chỉ áp dụng cho người mới sử dụng ứng dụng ezDeFi</p>
-            <p>- Chương trình chỉ áp dụng sau khi bạn đã comment và tag đủ 05 người bạn trên fanpgage</p>
-            <p>- Có gián đoạn xảy ra khi bạn tham gia chương trình</p>
-            <p>Vui lòng gỡ ứng dụng và click và đường link chúng tôi đã gửi cho bạn qua Messenger</p>
-          </div>)
-      }
-      setDisableSubmit(data.data.data)
-    }
-    if (!alpha) {
+    if(!alpha) {
       setDisableSubmit(true)
       setErr(
         <div>
@@ -107,7 +78,46 @@ const bounty = () => {
           <p>Vui lòng gỡ ứng dụng và click và đường link chúng tôi đã gửi cho bạn qua Messenger</p>
         </div>
       )
+      return
     }
+
+    setDisableSubmit(false)
+
+    let response;
+
+    try {
+      response = await claimAsrmService.getUser(alpha)
+    } catch(error) {
+      setNoti(
+        <div>
+          <p>Bạn chưa đủ điều kiện tham gia vì một trong những lý do sau:</p>
+          <p>- Chương trình chỉ áp dụng cho người mới sử dụng ứng dụng ezDeFi</p>
+          <p>- Chương trình chỉ áp dụng sau khi bạn đã comment và tag đủ 05 người bạn trên fanpgage</p>
+          <p>- Có gián đoạn xảy ra khi bạn tham gia chương trình</p>
+          <p>Vui lòng gỡ ứng dụng và click và đường link chúng tôi đã gửi cho bạn qua Messenger</p>
+        </div>
+      )
+      return
+    }
+
+    let user = response.data
+
+    setUser(user)
+
+    if(user.claimed == '0') {
+      setDisableSubmit(false)
+      setNoti(
+        <p>Mời bạn ấn nhấn nút "Nhận bounty ngay" để chúng tôi chuyển tới bạn 300 aSRM</p>
+      )
+      return
+    }
+
+    setDisableSubmit(true)
+    setCheck(
+      <div className="center">
+        <p>Bạn đã nhận bounty</p>
+      </div>
+    )
   }
 
   const claimASRM = async() => {
@@ -144,8 +154,6 @@ const bounty = () => {
       }
     }
   }
-  console.log('check', check)
-  console.log('noti', noti)
 
   return (
     <Col span={24}>
@@ -171,19 +179,7 @@ const bounty = () => {
                 }
               </div>
             :
-              <div>
-                { (formLinkSent == true) ? 
-                  <div className="text-white-light">Vui lòng kiểm tra inbox để lấy link tham gia vòng quay.</div>
-                  :
-                  <button className="btn-submit margin-top-md" onClick={sendFormLink} disabled={formLinkSending}>
-                    {(formLinkSending == true) ?
-                      <span className="text-white-bold"> <LoadingOutlined/></span>
-                      :
-                      <span>Tham gia</span>
-                    }
-                  </button>
-                }
-              </div>
+              ( user ? <LuckyWheel user={user} /> : <LoadingOutlined /> )
             }
             <p className='text-white-light'>{err}</p>
           </Col>

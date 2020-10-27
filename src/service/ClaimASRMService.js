@@ -110,6 +110,10 @@ export default class extends BaseService {
     }
   }
 
+  getUser(fb_id) {
+    return axios.get(API.GET_USER + fb_id)
+  }
+
   async asrmBalance() {
     let that = this
     const web3 = new Web3(window.ethereum)

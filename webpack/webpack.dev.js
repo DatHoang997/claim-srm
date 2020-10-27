@@ -90,7 +90,8 @@ module.exports = merge(common, {
         PLATFORM_ENV: JSON.stringify('web'),
         SERVER_URL: JSON.stringify('http://localhost:3030/api'),
         ASRM_POOL: JSON.stringify('0x1a3A8b3aF5A5F5DD9A338A16E19469E4fA36AB39'),
-        ASRM_CONTRACT_ADDRESS: JSON.stringify('0xD8cD9DCB9129afd033b6C75b23C65DC5fCdcd022')
+        ASRM_CONTRACT_ADDRESS: JSON.stringify('0xD8cD9DCB9129afd033b6C75b23C65DC5fCdcd022'),
+        FB_SEND_LINK: JSON.stringify('http://m.me/1795330330742938?ref=JFSNXoL76.ref.')
       }
     }),
     new webpack.optimize.OccurrenceOrderPlugin(),

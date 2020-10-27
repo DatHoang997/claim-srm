@@ -31,9 +31,6 @@ const home = () => {
           <TabPane tab='Chuyển SRM' key="2">
             <Swap/>
           </TabPane>
-          <TabPane tab="Vòng quay may mắn" key="3">
-            <LuckyWheel />
-          </TabPane>
         </Tabs>
       </div>
     </StandardPage>
