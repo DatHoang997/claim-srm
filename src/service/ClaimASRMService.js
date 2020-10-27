@@ -19,6 +19,7 @@ const API = {
   GET_USER : API_URL + '/user/get_user/',
   POST_INFO : API_URL + '/user/info/',
   GET_WALLET : API_URL + '/user/get_wallet/',
+  GET_INFO : API_URL + '/user/get_info/',
 }
 
 export default class extends BaseService {
