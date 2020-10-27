@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import StandardPage from '../StandardPage'
+import { useSelector, useDispatch } from "react-redux"
 import { Tabs } from 'antd'
 import ClaimAsrmService from '@/service/ClaimASRMService'
 import Bounty from '../claimASRM/index'
 import Swap from '../swapSRM/index'
+import Form from '../bountyForm/index'
+import {setupWeb3} from "../../../util/auth";
 import 'antd/dist/antd.css';
 import './style.scss'
 import LuckyWheel from '../../../components/LuckyWheel'
@@ -11,11 +14,20 @@ import LuckyWheel from '../../../components/LuckyWheel'
 const {TabPane} = Tabs;
 
 const home = () => {
+  const wallet = useSelector(state => state.claimASRM.wallet),
+        dbWallet = useSelector(state => state.claimASRM.dbWallet)
+
   const claimAsrmService = new ClaimAsrmService()
 
   useEffect(() => {
-    claimAsrmService.asrmBalance()
-  }, [])
+    if (window.ethereum) {
+      setupWeb3()
+    }
+    if (!wallet) {
+      claimAsrmService.getWallet(wallet)
+      claimAsrmService.asrmBalance()
+    }
+  }, [wallet])
 
   return (
     <StandardPage>
@@ -31,6 +43,11 @@ const home = () => {
           <TabPane tab='Chuyển SRM' key="2">
             <Swap/>
           </TabPane>
+          { dbWallet &&
+            <TabPane tab='Thông tin nhận thưởng' key="3">
+              <Form/>
+            </TabPane>
+          }
         </Tabs>
       </div>
     </StandardPage>

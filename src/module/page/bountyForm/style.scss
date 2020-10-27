@@ -1,0 +1,18 @@
+@import "../../../style/color";
+
+.label {
+  margin-top: 10px;
+}
+
+.label-card {
+  line-height: 22px;
+}
+
+.ant-input[disabled] {
+  background: rgba(0,0,0,0.5);
+  border: 1px solid #D8D8D8;
+  border-radius: 18px;
+  color: #fff;
+  height: 45px;
+  font-size: 15px;
+}
