@@ -30,11 +30,6 @@ const swap = () => {
   }
 
   useEffect(() => {
-    claimAsrmService.asrmBalance()
-  }, [])
-
-
-  useEffect(() => {
     if (serverResponse) {
       setDisableSubmit(false)
       setAsrmAmount('')

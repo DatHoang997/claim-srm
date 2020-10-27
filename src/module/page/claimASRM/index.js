@@ -4,12 +4,12 @@ import StandardPage from '../StandardPage'
 import { Input, Row, Col, Button, message } from 'antd'
 import ClaimAsrmService from '@/service/ClaimASRMService'
 import { LoadingOutlined } from '@ant-design/icons'
-import 'antd/dist/antd.css';
+import 'antd/dist/antd.css'
 import './style.scss'
-import {setupWeb3} from "../../../util/auth";
 
 const bounty = () => {
-  const serverResponse = useSelector(state => state.claimASRM.serverResponse),
+  const dispatch = useDispatch(),
+        serverResponse = useSelector(state => state.claimASRM.serverResponse),
         signatureResponse = useSelector(state => state.claimASRM.signatureResponse),
         wallet = useSelector(state => state.claimASRM.wallet),
         [fbId, setFbId] = useState(null),
@@ -20,17 +20,17 @@ const bounty = () => {
         [msg, setMsg] = useState(''),
         [click, setClick] = useState(''),
         [noti, setNoti] = useState(''),
-        [claimed, setClaimed] = useState('')
+        [claimed, setClaimed] = useState(''),
+        claimASRMRedux = store.getRedux('claimASRM').actions
 
   const claimAsrmService = new ClaimAsrmService()
   let myVar
   let alpha = ''
 
   useEffect(() => {
+    claimAsrmService.getWallet(wallet)
     myVar = setTimeout(go, 5000)
-    if (window.ethereum) {
-      setupWeb3()
-    }
+
   }, [wallet])
 
   useEffect(() => {
@@ -58,6 +58,7 @@ const bounty = () => {
       setDisableSubmit(false)
     }
   }, [signatureResponse])
+
   const go = async() => {
     getCookie('subid')
     getCookie('_ezdref')
@@ -119,9 +120,11 @@ const bounty = () => {
       if (name == '_ezdref' && name == cookiePair[0].trim()) {
         setFbId(decodeURIComponent(cookiePair[1]))
         alpha = decodeURIComponent(cookiePair[1])
+        dispatch(claimASRMRedux._ezdref_update(cookiePair[1]))
       }
       if (name == 'subid' && name == cookiePair[0].trim()) {
         setPsId(decodeURIComponent(cookiePair[1]))
+        dispatch(claimASRMRedux.subid_update(cookiePair[1]))
       }
     }
   }

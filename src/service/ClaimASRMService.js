@@ -11,10 +11,14 @@ let API_URL = process.env.SERVER_URL
 const API = {
   // CLAIM_SRM : 'http://192.168.1.88:3030/api' + '/user/',
   // SWAP_SRM : 'http://192.168.1.88:3030/api' + '/user/swap/',
+  // POST_INFO : 'http://192.168.1.88:3030/api' + '/user/info/',
+  // GET_INFO : 'http://192.168.1.88:3030/api' + '/user/get_info/',
+  // GET_WALLET : 'http://192.168.1.88:3030/api' + '/user/get_wallet/',
   CLAIM_SRM : API_URL + '/user/',
   SWAP_SRM : API_URL + '/user/swap/',
   GET_USER : API_URL + '/user/get_user/',
-  POST_INFO : API_URL + '/user/info/'
+  POST_INFO : API_URL + '/user/info/',
+  GET_WALLET : API_URL + '/user/get_wallet/',
 }
 
 export default class extends BaseService {
@@ -122,6 +126,36 @@ export default class extends BaseService {
     try {
       let response = await axios.post(API.POST_INFO, formData)
       console.log(response)
+      return response.data;
+    } catch (error) {
+      return error
+    }
+  }
+
+  async getInfo(wallet) {
+    let that = this
+    const claimASRMRedux = this.store.getRedux('claimASRM')
+    try {
+      let response = await axios.get(API.GET_INFO + wallet)
+      console.log(response.data)
+      that.dispatch(claimASRMRedux.actions.name_update(response.data.data.name))
+      that.dispatch(claimASRMRedux.actions.address_update(response.data.data.address))
+      that.dispatch(claimASRMRedux.actions.phone_update(response.data.data.phone))
+      that.dispatch(claimASRMRedux.actions.viettel_update(response.data.data.viettel))
+      return response.data;
+    } catch (error) {
+      return error
+    }
+  }
+
+  async getWallet(wallet) {
+    let that = this
+    const claimASRMRedux = this.store.getRedux('claimASRM')
+    try {
+      let response = await axios.get(API.GET_WALLET + wallet)
+      if (response.data.data) {
+        that.dispatch(claimASRMRedux.actions.dbWallet_update(response.data.data))
+      }
       return response;
     } catch (error) {
       return error

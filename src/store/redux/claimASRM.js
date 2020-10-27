@@ -9,12 +9,17 @@ class claimASRMRedux extends BaseRedux {
     return {
       serverResponse: '',
       signatureResponse: '',
-      fb_id: '',
-      ps_id: '',
-      wallet: '',
+      _ezdref: '',
+      subid: '',
+      wallet: undefined,
       web3: '',
       asrmToken: '',
       balance: '',
+      name: '',
+      address: '',
+      phone: '',
+      viettel: '',
+      dbWallet: '',
     }
   }
 }
