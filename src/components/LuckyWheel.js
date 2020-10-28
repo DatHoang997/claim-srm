@@ -84,10 +84,9 @@ const LuckyWheel = (props) => {
   }
 
   const shareOnFB = () => {
-    let server_url = process.env.SERVER_URL.replace('api', '');
     FB.ui({
       method: 'share',
-      href: `${server_url}/ref/${props.user.fb_id}`,
+      href: `http://api-bounty.ezdefi.com//ref/${props.user.fb_id}`,
     }, function(response){
       if(response === undefined) {
         openNotification('Chia sẻ liên kết thất bại. Vui lòng thử lại', 'error')
