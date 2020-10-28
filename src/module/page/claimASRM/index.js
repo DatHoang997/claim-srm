@@ -117,7 +117,7 @@ console.log('aaaaaaaaaaaaa', disableSubmit)
       return
     }
 
-    let user = response.data.data
+    let user = response.data
 
     setForm(user)
 
