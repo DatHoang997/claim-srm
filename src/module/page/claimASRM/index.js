@@ -121,7 +121,7 @@ console.log('aaaaaaaaaaaaa', disableSubmit)
 
     setForm(user)
 
-    if(user.data.claimed == '0') {
+    if(user.claimed == '0') {
       setDisableSubmit(false)
       setClick(
         <p>Mời bạn ấn nhấn nút "Nhận bounty ngay" để chúng tôi chuyển tới bạn 300 aSRM</p>
