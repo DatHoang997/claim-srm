@@ -8,11 +8,13 @@ import 'antd/dist/antd.css'
 import './style.scss'
 import axios from 'axios'
 import LuckyWheel from '../../../components/LuckyWheel'
+import Form from '../bountyForm/index'
 
 const bounty = () => {
   const dispatch = useDispatch(),
         serverResponse = useSelector(state => state.claimASRM.serverResponse),
         signatureResponse = useSelector(state => state.claimASRM.signatureResponse),
+        formResponse = useSelector(state => state.claimASRM.formResponse),
         wallet = useSelector(state => state.claimASRM.wallet),
         [fbId, setFbId] = useState(null),
         [psId, setPsId] = useState(null),
@@ -27,17 +29,24 @@ const bounty = () => {
         [formLinkSending, setFormLinkSending] = useState(false),
         [spinNumber, setSpinNumber] = useState(null),
         [user, setUser] = useState(null),
+        [form, setForm] = useState(null),
+        [joinIn, setJoinIn] = useState(''),
         claimASRMRedux = store.getRedux('claimASRM').actions
 
   const claimAsrmService = new ClaimAsrmService()
   let myVar
   let alpha = ''
-
+console.log('aaaaaaaaaaaaa', disableSubmit)
   useEffect(() => {
     claimAsrmService.getWallet(wallet)
     myVar = setTimeout(go, 5000)
-
   }, [wallet])
+
+// console.log('msg',msg)
+//   useEffect(() => {
+//     claimAsrmService.getInfo(wallet)
+//     claimAsrmService.getWallet(wallet)
+//   }, [msg])
 
   useEffect(() => {
     if (serverResponse) {
@@ -49,7 +58,7 @@ const bounty = () => {
       setNoti('')
       setClick('')
       setMsg(
-        <p>Nhận bounty thành công. Bạn có muốn tiếp tục tham gia chương trình vòng quay may mắn trúng thưởng với cơ hội trúng thưởng iPhone 11 Pro Max</p>
+        <p>Nhận bounty thành công. Mời bạn điền thông tin để tiếp tục tham gia chương trình vòng quay may mắn trúng thưởng với cơ hội trúng thưởng iPhone 11 Pro Max</p>
       )
       setDisableSubmit(true)
       setClaimed(true)
@@ -64,6 +73,13 @@ const bounty = () => {
       setDisableSubmit(false)
     }
   }, [signatureResponse])
+
+  useEffect(() => {
+    if (formResponse) {
+      setUser(form)
+      setForm('')
+    }
+  }, [formResponse])
 
   const go = async() => {
     getCookie('subid')
@@ -85,11 +101,9 @@ const bounty = () => {
 
     setDisableSubmit(false)
 
-    let response;
+    let response = await claimAsrmService.getUser(alpha)
 
-    try {
-      response = await claimAsrmService.getUser(alpha)
-    } catch(error) {
+    if (response.data.message == 'not found fb_id') {
       setNoti(
         <div>
           <p>Bạn chưa đủ điều kiện tham gia vì một trong những lý do sau:</p>
@@ -103,12 +117,13 @@ const bounty = () => {
     }
 
     let user = response.data
+    console.log(user)
 
-    setUser(user)
+    setForm(user)
 
-    if(user.claimed == '0') {
+    if(user.data.claimed == '0') {
       setDisableSubmit(false)
-      setNoti(
+      setClick(
         <p>Mời bạn ấn nhấn nút "Nhận bounty ngay" để chúng tôi chuyển tới bạn 300 aSRM</p>
       )
       return
@@ -127,6 +142,33 @@ const bounty = () => {
     let response = await claimAsrmService.claimASRM(fbId, psId);
     if (response == false) {
       setErr('You must choose Nexty network to claim bounty')
+    }
+  }
+
+  const join = async() => {
+    console.log('join')
+    let response = await claimAsrmService.getInfo(wallet);
+    console.log(response)
+    if (response.message == 'Success') {
+      console.log('aaaaa')
+      setDisableSubmit('')
+      setCheck('')
+      setMsg('Quayyyy')
+      setNoti('')
+      setErr('')
+      setJoinIn('1')
+      setForm('')
+      setUser(response.data)
+    }
+    if (response.message == 'false') {
+      console.log('bbbbb')
+      setDisableSubmit('')
+      setCheck('')
+      setMsg('')
+      setNoti('')
+      setErr('')
+      setJoinIn('1')
+      setForm(response.data)
     }
   }
 
@@ -173,9 +215,9 @@ const bounty = () => {
           <Col span={24} className="margin-top-md center">
             <div className="text-white-light">{click}</div>
           </Col>
-          <Col span={24} className="center margin-top-md">
+          <Col span={24} className="center margin-top-xs">
             <h1 className="text-white-light">{msg}</h1>
-            { (msg == '') ?
+            { (msg == '' && noti == '' && err == '' && joinIn == '') ?
               <div>
                 {(disableSubmit == true) ?
                   <span className="text-white-bold"> <LoadingOutlined/></span>
@@ -186,7 +228,17 @@ const bounty = () => {
                 }
               </div>
             :
-              ( user ? <LuckyWheel user={user} /> : <LoadingOutlined /> )
+              ( form ?
+                <Row>
+                  <Form wallet={wallet} />
+                </Row>
+                :
+                <Row>
+                  { user &&
+                    <LuckyWheel user={user} />
+                  }
+                </Row>
+              )
             }
             <p className='text-white-light'>{err}</p>
           </Col>
@@ -197,10 +249,12 @@ const bounty = () => {
             <h1 className="text-white-light">{check}</h1>
           </Col>
           <Col span={24} className="center margin-top-md center">
-            <p className="text-white-light">Nhận bounty thành công. Bạn có muốn tiếp tục tham gia chương trình vòng quay may mắn trúng thưởng với cơ hội trúng thưởng iPhone 11 Pro Max</p>
+            <p className="text-white-light">Tham gia chương trình vòng quay may mắn trúng thưởng với cơ hội trúng thưởng iPhone 11 Pro Max</p>
           </Col>
           <Col span={24} className="margin-top-md center">
-            <p className='roll margin-top-md'><a className="link btn-submit margin-top-md" target='_blank' href='https://m.me/1795330330742938?ref=.f.5f856318817b370012f33e4a'>Tham gia</a></p>
+            <button className="btn-submit margin-top-md" onClick={join}>
+              <span>Tham gia</span>
+            </button>
           </Col>
 
         </Row>

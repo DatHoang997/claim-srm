@@ -6,6 +6,7 @@ import luckyWheelImage from '../assets/images/lucky-wheel.png';
 import { Button, Modal, notification } from 'antd'
 
 const LuckyWheel = (props) => {
+  console.log(props.user)
   const [spinning, setSpinning] = useState(false)
   const [spinNumber, setSpinNumber] = useState(null)
   const [prize, setPrize] = useState(null)

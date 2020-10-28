@@ -20,6 +20,7 @@ class claimASRMRedux extends BaseRedux {
       phone: '',
       viettel: '',
       dbWallet: '',
+      formResponse: '',
     }
   }
 }

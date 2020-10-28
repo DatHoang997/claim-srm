@@ -122,6 +122,8 @@ export default class extends BaseService {
   }
 
   async insertInformation(name, address, phoneNumber, reward, wallet) {
+    let that = this
+    const claimASRMRedux = this.store.getRedux('claimASRM')
     let formData = new FormData()
     formData.append("name", name)
     formData.append("address", address)
@@ -131,6 +133,7 @@ export default class extends BaseService {
     try {
       let response = await axios.post(API.POST_INFO, formData)
       console.log(response)
+      that.dispatch(claimASRMRedux.actions.formResponse_update(response))
       return response.data;
     } catch (error) {
       return error
@@ -138,16 +141,15 @@ export default class extends BaseService {
   }
 
   async getInfo(wallet) {
-    let that = this
-    const claimASRMRedux = this.store.getRedux('claimASRM')
     try {
       let response = await axios.get(API.GET_INFO + wallet)
-      console.log(response.data)
-      that.dispatch(claimASRMRedux.actions.name_update(response.data.data.name))
-      that.dispatch(claimASRMRedux.actions.address_update(response.data.data.address))
-      that.dispatch(claimASRMRedux.actions.phone_update(response.data.data.phone))
-      that.dispatch(claimASRMRedux.actions.viettel_update(response.data.data.viettel))
-      return response.data;
+      console.log('response', response.data.message)
+      if (response.data.message == 'Success') {
+        return response.data;
+      }
+      if (response.data.message == 'false') {
+        return response.data;
+      }
     } catch (error) {
       return error
     }

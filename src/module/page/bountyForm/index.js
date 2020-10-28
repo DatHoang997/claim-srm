@@ -8,19 +8,15 @@ import _ from 'lodash'
 import 'antd/dist/antd.css';
 import './style.scss'
 
-const swap = () => {
+const swap = (props) => {
   const serverResponse = useSelector(state => state.claimASRM.serverResponse),
         signatureResponse = useSelector(state => state.claimASRM.signatureResponse),
         balance = useSelector(state => state.claimASRM.balance),
-        wallet = useSelector(state => state.claimASRM.wallet),
-        reduxName = useSelector(state => state.claimASRM.name),
-        reduxAddress = useSelector(state => state.claimASRM.address),
-        reduxPhone = useSelector(state => state.claimASRM.phone),
-        reduxViettel = useSelector(state => state.claimASRM.viettel),
+        // wallet = useSelector(state => state.claimASRM.wallet),
         [srmAddress, setSrmAddress] = useState(''),
         [fbId, setFbId] = useState(''),
         [err, setErr] = useState(''),
-        [disableSubmit, setDisableSubmit] = useState(true),
+        [disableSubmit, setDisableSubmit] = useState(false),
         [disableInput, setDisableInput] = useState(false),
         [asrmAmount, setAsrmAmount] = useState(''),
         [name, setName] = useState(''),
@@ -36,72 +32,18 @@ const swap = () => {
   }
 
   useEffect(() => {
-    claimAsrmService.getInfo(wallet)
+    // claimAsrmService.getInfo(props.wallet)
   }, [])
 
-  useEffect(() => {
-    if (reduxName != '') {
-      setDisableInput(true)
-    }
-  }, [reduxName])
-
-  useEffect(() => {
-    if (serverResponse) {
-      setDisableSubmit(false)
-      setAsrmAmount('')
-      setSrmAddress('')
-      setSrmAmount(0)
-    }
-    if (serverResponse.message == 'swap success') {
-      message.success('Chuyển thành công SRM')
-      setDisableSubmit(false)
-    }
-  }, [serverResponse])
 
   const insert = async() => {
     setDisableSubmit(true)
     setErr('')
     if (name == '' || address == '' || phoneNumber == '' || reward == '') {
       setErr('vui lòng điền đầy đủ thông tin')
-      setDisableSubmit(true)
+      setDisableSubmit(false)
     } else {
-      let response = await claimAsrmService.insertInformation(name, address, phoneNumber, reward, wallet);
-      if (response.status == 1) {
-        setDisableSubmit(false)
-        setName('')
-        setAddress('')
-        setPhoneNumber('')
-        setViettel('')
-        setReward('')
-        message.success('Gửi thông tin thành công')
-      }
-      if (response.message == 'filled') {
-        setDisableSubmit(false)
-        setName('')
-        setAddress('')
-        setPhoneNumber('')
-        setViettel('')
-        setReward('')
-        setErr('Tài khoản này đã được điền thông tin')
-      }
-      if (response.message == 'false') {
-        setDisableSubmit(false)
-        setName('')
-        setAddress('')
-        setPhoneNumber('')
-        setViettel('')
-        setReward('')
-        setErr('Đã sảy ra lỗi')
-      }
-      if (response.message == 'wrong') {
-        setDisableSubmit(false)
-        setName('')
-        setAddress('')
-        setPhoneNumber('')
-        setViettel('')
-        setReward('')
-        setErr('Không tìm thấy ví')
-      }
+      let response = await claimAsrmService.insertInformation(name, address, phoneNumber, reward, props.wallet);
     }
   }
 
@@ -130,75 +72,60 @@ const swap = () => {
           <div className="margin-top-sm center">
             <span>
               <h3 className="text-white-bold">Điền Thông tin</h3>
+              <p className='text-white-bold'>{err}</p>
             </span>
           </div>
         </Col>
         <Col span={24} className="margin-top-md">
           <Row>
-            <Col span={7} className="label">
+            <Col span={24} className="label left-align">
               <p className="text-white-light">Họ tên</p>
             </Col>
-            <Col span={17}>
-              <Input type="text" className="swap-input" value={name} placeholder={reduxName} onChange={(e)=>{setName(e.target.value), setDisableSubmit(false)}} disabled={disableInput}/>
+            <Col span={24} className="margin-top-xs">
+              <Input type="text" className="swap-input" value={name} onChange={(e)=>{setName(e.target.value), setDisableSubmit(false)}} disabled={disableInput}/>
             </Col>
           </Row>
         </Col>
         <Col span={24} className="margin-top-md">
           <Row>
-            <Col span={7} className="label">
+            <Col span={24} className="label left-align">
               <p className="text-white-light">Địa chỉ</p>
             </Col>
-            <Col span={17}>
-              <Input type="text" className="swap-input" value={address} placeholder={reduxAddress} onChange={(e)=>{setAddress(e.target.value), setDisableSubmit(false)}} disabled={disableInput}/>
+            <Col span={24} className="margin-top-xs">
+              <Input type="text" className="swap-input" value={address} onChange={(e)=>{setAddress(e.target.value), setDisableSubmit(false)}} disabled={disableInput}/>
             </Col>
           </Row>
         </Col>
         <Col span={24} className="margin-top-md">
           <Row>
-            <Col span={7} className="label">
+            <Col span={24} className="label left-align">
               <p className="text-white-light">SĐT</p>
             </Col>
-            <Col span={17}>
-              <Input type="text" className="swap-input" placeholder={reduxPhone} value={phoneNumber} onChange={getReward} disabled={disableInput}/>
+            <Col span={24} className="margin-top-xs">
+              <Input type="text" className="swap-input" value={phoneNumber} onChange={getReward} disabled={disableInput}/>
             </Col>
           </Row>
         </Col>
         <Col span={24} className="margin-top-md">
           <Row>
-            <Col span={7} className="label-card">
+            <Col span={24} className="label left-align">
               <p className="text-white-light">SĐT nhận thẻ cào</p>
             </Col>
-            <Col span={17}>
-              <Input type="text" className="swap-input" placeholder={reduxViettel} value={reward} onChange={getViettelNumber} disabled={disableInput}/>
+            <Col span={24} className="margin-top-xs">
+              <Input type="text" className="swap-input" value={reward} onChange={getViettelNumber} disabled={disableInput}/>
             </Col>
           </Row>
         </Col>
-        { (reduxName == '') ?
-          <Col span={24} className="center margin-top-button">
-            <Row>
-              <Col span={7}></Col>
-              <Col span={17}>
-                <button className="btn-submit" onClick={insert} disabled={disableSubmit}>
-                  {disableSubmit && <span className="margin-right-sm"> <LoadingOutlined/></span>}
-                  Thực hiện
-                </button>
-                <p className='text-white-bold'>{err}</p>
-              </Col>
-            </Row>
-          </Col>
-          :
-          <Col span={24} className="center margin-top-button">
+        <Col span={24} className="center margin-top-button">
           <Row>
-            <Col span={7}></Col>
-            <Col span={17}>
-              <button className="btn-submit-disable" onClick={insert} disabled={disableSubmit}>
+            <Col span={24}>
+              <button className="btn-submit" onClick={insert} disabled={disableSubmit}>
+                {disableSubmit && <span className="margin-right-sm"> <LoadingOutlined/></span>}
                 Thực hiện
               </button>
-              <p className='text-white-bold'>{err}</p>
             </Col>
           </Row>
         </Col>
-        }
       </Row>
     </Col>
   )
