@@ -153,7 +153,7 @@ console.log('aaaaaaaaaaaaa', disableSubmit)
       console.log('aaaaa')
       setDisableSubmit('')
       setCheck('')
-      setMsg('Quayyyy')
+      setMsg('')
       setNoti('')
       setErr('')
       setJoinIn('1')
@@ -234,9 +234,11 @@ console.log('aaaaaaaaaaaaa', disableSubmit)
                 </Row>
                 :
                 <Row>
-                  { user &&
-                    <LuckyWheel user={user} />
-                  }
+                  <Col span={24}>
+                    { user &&
+                      <LuckyWheel user={user} />
+                    }
+                  </Col>
                 </Row>
               )
             }
