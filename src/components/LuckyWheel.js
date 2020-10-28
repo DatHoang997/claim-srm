@@ -84,10 +84,10 @@ const LuckyWheel = (props) => {
   }
 
   const shareOnFB = () => {
-    console.log(`${process.env.SERVER_URL}/ref/${props.user.fb_id}`)
+    let server_url = process.env.SERVER_URL.replace('api', '');
     FB.ui({
       method: 'share',
-      href: `${process.env.SERVER_URL}/ref/${props.user.fb_id}`,
+      href: `${server_url}/ref/${props.user.fb_id}`,
     }, function(response){
       if(response === undefined) {
         openNotification('Chia sẻ liên kết thất bại. Vui lòng thử lại', 'error')
