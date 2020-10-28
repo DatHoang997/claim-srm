@@ -9,6 +9,7 @@ import './style.scss'
 import axios from 'axios'
 import LuckyWheel from '../../../components/LuckyWheel'
 import Form from '../bountyForm/index'
+import store from '@/store'
 
 const bounty = () => {
   const dispatch = useDispatch(),
@@ -116,8 +117,7 @@ console.log('aaaaaaaaaaaaa', disableSubmit)
       return
     }
 
-    let user = response.data
-    console.log(user)
+    let user = response.data.data
 
     setForm(user)
 
