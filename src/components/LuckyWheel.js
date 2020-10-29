@@ -3,6 +3,7 @@ import Winwheel from 'winwheel'
 import { TweenMax } from 'gsap/TweenMax'
 import axios from 'axios'
 import luckyWheelImage from '../assets/images/lucky-wheel.png';
+import luckyWheelButtonImage from '../assets/images/lucky-wheel-button.png';
 import { Button, Modal, notification } from 'antd'
 
 const LuckyWheel = (props) => {
@@ -145,18 +146,22 @@ const LuckyWheel = (props) => {
       <div id="lucky-wheel" style={luckyWheelStyle}>
         <canvas id="canvas" width="600" height="600" />
         <img style={luckyWheelPointerStyle} src="https://blog-bbh.s3.ap-southeast-1.amazonaws.com/Asset%207f4-1571513553.png" />
-        <img style={luckyWheelButtonStyle} onClick={spin} src="https://blog-bbh.s3.ap-southeast-1.amazonaws.com/N%C3%9AT-%C4%90%E1%BA%B8P-1572492667.png" />
+        <img style={luckyWheelButtonStyle} onClick={spin} src={luckyWheelButtonImage} />
       </div>
       <div style={{color: 'white'}}>
         { (spinNumber > 0) ?
           <div>
-            <p>Bạn có {spinNumber} lượt quay</p>
-            <Button onClick={spin} type="primary">Quay ngay</Button>
+            <p className="margin-top-md">Bạn có {spinNumber} lượt quay</p>
+            <button className="btn-submit margin-top-md" onClick={spin}>
+              <span>Quay ngay</span>
+            </button>
           </div>
         :
           <div>
-            <p>Bạn đã hết lượt quay. Click vào button phía dưới để gửi link chia sẻ tới bạn bè. Bạn sẽ được cộng lượt quay sau khi bạn bè click vào link.</p>
-            <Button onClick={shareOnFB} type="primary">Chia sẻ liên kết</Button>
+            <p className="margin-top-md">Bạn đã hết lượt quay. Click vào button phía dưới để gửi link chia sẻ tới bạn bè. Bạn sẽ được cộng lượt quay sau khi bạn bè click vào link.</p>
+            <button className="btn-submit margin-top-md" onClick={shareOnFB}>
+              <span>Chia sẻ liên kết</span>
+            </button>
           </div>
         }
       </div>
