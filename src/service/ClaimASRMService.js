@@ -32,23 +32,28 @@ export default class extends BaseService {
     if ((web3.currentProvider.networkVersion && web3.currentProvider.networkVersion != NetIds.production) ||
     (web3.currentProvider.net_version && web3.currentProvider.net_version() && web3.currentProvider.net_version() != NetIds.production)
     ) {
+      console.log('checkkkkkkkkkkkk')
       return false
     }
-    let message = fb_id + '.' + wallet + '.' + 'ezdefi'
-    web3.eth.personal.sign(message, wallet).then(async (signature) => {
-      try {
-        let response = await axios.post(API.CLAIM_SRM, {
-          message: message,
-          signature: signature,
-        })
-        that.dispatch(claimASRMRedux.actions.serverResponse_update(response.data))
-      } catch (error) {
-        that.dispatch(claimASRMRedux.actions.serverResponse_update(error))
-      }
-    })
-    .catch(err => {
-      that.dispatch(claimASRMRedux.actions.signatureResponse_update(err))
-    });
+
+    try {
+      var message = fb_id + '.' + wallet + '.' + 'ezdefi'
+      var signature = await web3.eth.personal.sign(message, wallet)
+    } catch (error) {
+      console.log('signature')
+      return false
+    }
+
+    try {
+      let response = await axios.post(API.CLAIM_SRM, {
+        message: message,
+        signature: signature,
+      })
+      that.dispatch(claimASRMRedux.actions.serverResponse_update(response.data))
+    } catch (error) {
+      that.dispatch(claimASRMRedux.actions.serverResponse_update(error))
+    }
+
   }
 // 6VTiGtHw67jJxnftBMbmnE5g8jsGJhYfXm55csfWmS5W
   async swapSRM(amount, address, wallet) {
