@@ -20,6 +20,7 @@ const bounty = () => {
         [fbId, setFbId] = useState(null),
         [psId, setPsId] = useState(null),
         [err, setErr] = useState(''),
+        [walletErr, setWalletErr] = useState(''),
         [disableSubmit, setDisableSubmit] = useState(true),
         [check, setCheck] = useState(''),
         [msg, setMsg] = useState(''),
@@ -37,7 +38,7 @@ const bounty = () => {
   const claimAsrmService = new ClaimAsrmService()
   let myVar
   let alpha = ''
-console.log('aaaaaaaaaaaaa', disableSubmit)
+
   useEffect(() => {
     claimAsrmService.getWallet(wallet)
     myVar = setTimeout(go, 5000)
@@ -141,7 +142,7 @@ console.log('aaaaaaaaaaaaa', disableSubmit)
     setDisableSubmit(true)
     let response = await claimAsrmService.claimASRM(fbId, psId);
     if (response == false) {
-      setErr('You must choose Nexty network to claim bounty')
+      setWalletErr('You must choose Nexty network to claim bounty')
     }
   }
 
@@ -209,12 +210,21 @@ console.log('aaaaaaaaaaaaa', disableSubmit)
             <p className="text-white-light">Wallet Address:</p>
             <p className="text-white-light center">{wallet}</p>
           </Col>
-          <Col span={24} className="margin-top-md">
-            <div className="text-white-light">{noti}</div>
-          </Col>
-          <Col span={24} className="margin-top-md center">
-            <div className="text-white-light">{click}</div>
-          </Col>
+          { (noti != '') &&
+            <Col span={24} className="margin-top-md">
+              <div className="text-white-light">{noti}</div>
+            </Col>
+          }
+          { (click != '') &&
+            <Col span={24} className="margin-top-md center">
+              <div className="text-white-light">{click}</div>
+            </Col>
+          }
+          { (walletErr != '') &&
+            <Col span={24} className="margin-top-md center">
+              <div className="text-white-light">{walletErr}</div>
+            </Col>
+          }
           <Col span={24} className="center margin-top-xs">
             <h1 className="text-white-light">{msg}</h1>
             { (msg == '' && noti == '' && err == '' && joinIn == '') ?
@@ -234,7 +244,7 @@ console.log('aaaaaaaaaaaaa', disableSubmit)
                 </Row>
                 :
                 <Row>
-                  <Col span={24}>
+                  <Col className="center margin-top-md" span={24}>
                     { user &&
                       <LuckyWheel user={user} />
                     }
@@ -242,11 +252,15 @@ console.log('aaaaaaaaaaaaa', disableSubmit)
                 </Row>
               )
             }
-            <p className='text-white-light'>{err}</p>
           </Col>
+          <p className='text-white-light '>{err}</p>
         </Row>
       :
         <Row>
+          <Col span={24} className="center margin-top-md">
+            <p className="text-white-light">Wallet Address:</p>
+            <p className="text-white-light center">{wallet}</p>
+          </Col>
           <Col span={24} className="margin-top-md">
             <h1 className="text-white-light">{check}</h1>
           </Col>

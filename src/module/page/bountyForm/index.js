@@ -71,7 +71,7 @@ const swap = (props) => {
         <Col span={24}>
           <div className="margin-top-sm center">
             <span>
-              <h3 className="text-white-bold">Điền Thông tin</h3>
+              <h3 className="text-white-bold">Điền Thông tin:</h3>
               <p className='text-white-bold'>{err}</p>
             </span>
           </div>
@@ -79,7 +79,7 @@ const swap = (props) => {
         <Col span={24} className="margin-top-md">
           <Row>
             <Col span={24} className="label left-align">
-              <p className="text-white-light">Họ tên</p>
+              <p className="text-white-light">Họ tên:</p>
             </Col>
             <Col span={24} className="margin-top-xs">
               <Input type="text" className="swap-input" value={name} onChange={(e)=>{setName(e.target.value), setDisableSubmit(false)}} disabled={disableInput}/>
@@ -89,7 +89,7 @@ const swap = (props) => {
         <Col span={24} className="margin-top-md">
           <Row>
             <Col span={24} className="label left-align">
-              <p className="text-white-light">Địa chỉ</p>
+              <p className="text-white-light">Địa chỉ:</p>
             </Col>
             <Col span={24} className="margin-top-xs">
               <Input type="text" className="swap-input" value={address} onChange={(e)=>{setAddress(e.target.value), setDisableSubmit(false)}} disabled={disableInput}/>
@@ -99,7 +99,7 @@ const swap = (props) => {
         <Col span={24} className="margin-top-md">
           <Row>
             <Col span={24} className="label left-align">
-              <p className="text-white-light">SĐT</p>
+              <p className="text-white-light">SĐT:</p>
             </Col>
             <Col span={24} className="margin-top-xs">
               <Input type="text" className="swap-input" value={phoneNumber} onChange={getReward} disabled={disableInput}/>

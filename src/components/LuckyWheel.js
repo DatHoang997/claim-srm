@@ -4,6 +4,7 @@ import { TweenMax } from 'gsap/TweenMax'
 import axios from 'axios'
 import luckyWheelImage from '../assets/images/lucky-wheel.png';
 import luckyWheelButtonImage from '../assets/images/lucky-wheel-button.png';
+import luckyWheelPointerImage from '../assets/images/lucky-wheel-pointer.png';
 import { Button, Modal, notification } from 'antd'
 
 const LuckyWheel = (props) => {
@@ -35,6 +36,7 @@ const LuckyWheel = (props) => {
 
   const setDefaultWheel = () => {
     let wheel = new Winwheel({
+      'responsive': true,
       'canvasId': 'canvas',
       'numSegments': 8,
       'drawMode': 'image',
@@ -120,7 +122,7 @@ const LuckyWheel = (props) => {
 
   const luckyWheelStyle = {
     position: 'relative', 
-    width: '600px',
+    width: '300px',
     margin: '0 auto'
   }
 
@@ -128,8 +130,9 @@ const LuckyWheel = (props) => {
     position: 'absolute',
     left: '50%',
     transform: 'translateX(-50%)',
-    top: '14px',
-    width: '100px'
+    top: '-10px',
+    width: 'auto',
+    height: '40px'
   }
 
   const luckyWheelButtonStyle = {
@@ -137,15 +140,15 @@ const LuckyWheel = (props) => {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: '80px',
+    width: '60px',
     cursor: 'pointer',
   }
 
   return(
     <div>
       <div id="lucky-wheel" style={luckyWheelStyle}>
-        <canvas id="canvas" width="600" height="600" />
-        <img style={luckyWheelPointerStyle} src="https://blog-bbh.s3.ap-southeast-1.amazonaws.com/Asset%207f4-1571513553.png" />
+        <canvas id="canvas" width="300" height="300" />
+        <img style={luckyWheelPointerStyle} src={luckyWheelPointerImage} />
         <img style={luckyWheelButtonStyle} onClick={spin} src={luckyWheelButtonImage} />
       </div>
       <div style={{color: 'white'}}>

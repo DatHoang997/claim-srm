@@ -26,8 +26,8 @@ export default class extends BaseService {
   async claimASRM(fb_id) {
     let that = this
     const storeUser = this.store.getState().claimASRM
-    const web3 = new Web3(window.ethereum)
     const claimASRMRedux = this.store.getRedux('claimASRM')
+    const web3 = storeUser.web3
     let wallet = storeUser.wallet
     if ((web3.currentProvider.networkVersion && web3.currentProvider.networkVersion != NetIds.production) ||
     (web3.currentProvider.net_version && web3.currentProvider.net_version() && web3.currentProvider.net_version() != NetIds.production)
