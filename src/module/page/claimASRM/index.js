@@ -141,6 +141,9 @@ const bounty = () => {
   const claimASRM = async() => {
     setDisableSubmit(true)
     let response = await claimAsrmService.claimASRM(fbId, psId);
+    if (response) {
+      setDisableSubmit(false)
+    }
     if (response == false) {
       setWalletErr('You must choose Nexty network to claim bounty')
     }

@@ -10,13 +10,13 @@ export const setupWeb3 = async (callback = null) => {
   const claimASRMRedux = store.getRedux('claimASRM')
   let isRequest = false
   let isLoggedIn = false
-
-  await window.web3.eth.getAccounts(async (err, accounts) => {
+  const web3 = new Web3(window.ethereum)
+  await web3.eth.requestAccounts(async (err, accounts) => {
+    console.log(accounts)
     if (err) return
     if (accounts.length > 0) {
       // detect account switch
       if (!isLoggedIn) {
-        const web3 = new Web3(window.ethereum)
         store.dispatch(claimASRMRedux.actions.web3_update(web3))
         store.dispatch(claimASRMRedux.actions.wallet_update(accounts[0]))
         if (callback) await callback()
