@@ -82,7 +82,7 @@ const LuckyWheel = (props) => {
     let prize = response.data.prize;
     setPrize(prize)
     let segmentIndex = segments.findIndex((segment) => segment.text === prize);
-    wheel.animation.stopAngle = (segmentIndex) ? wheel.getRandomForSegment(segmentIndex + 1) : wheel.getRandomForSegment(3);
+    wheel.animation.stopAngle = (segmentIndex < 0) ? wheel.getRandomForSegment(3) : wheel.getRandomForSegment(segmentIndex + 1);
     wheel.startAnimation();
   }
 
