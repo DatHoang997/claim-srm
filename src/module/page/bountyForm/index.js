@@ -109,7 +109,7 @@ const swap = (props) => {
         <Col span={24} className="margin-top-md">
           <Row>
             <Col span={24} className="label left-align">
-              <p className="text-white-light">SĐT nhận thẻ cào</p>
+              <p className="text-white-light">SĐT (Viettel) nhận thẻ cào:</p>
             </Col>
             <Col span={24} className="margin-top-xs">
               <Input type="text" className="swap-input" value={reward} onChange={getViettelNumber} disabled={disableInput}/>
