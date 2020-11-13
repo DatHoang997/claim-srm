@@ -2,6 +2,7 @@ import BaseService from '../model/BaseService'
 import axios from 'axios'
 import BigNumber from 'big-number'
 import Web3 from "web3";
+import {setupWeb3} from "../util/auth";
 import {NetIds} from "../constant";
 import AsrmContract from '../../build/production/contracts/POC_Token.json'
 import {thousands, weiToPOC, hideAddress,
@@ -9,11 +10,12 @@ import {thousands, weiToPOC, hideAddress,
 
 let API_URL = process.env.SERVER_URL
 const API = {
-  // CLAIM_SRM : 'http://192.168.1.88:3030/api' + '/user/',
-  // SWAP_SRM : 'http://192.168.1.88:3030/api' + '/user/swap/',
-  // POST_INFO : 'http://192.168.1.88:3030/api' + '/user/info/',
-  // GET_INFO : 'http://192.168.1.88:3030/api' + '/user/get_info/',
-  // GET_WALLET : 'http://192.168.1.88:3030/api' + '/user/get_wallet/',
+  // CLAIM_SRM : 'http://192.168.1.98:3030/api' + '/user/',
+  // SWAP_SRM : 'http://192.168.1.98:3030/api' + '/user/swap/',
+  // POST_INFO : 'http://192.168.1.98:3030/api' + '/user/info/',
+  // GET_INFO : 'http://192.168.1.98:3030/api' + '/user/get_info/',
+  // GET_WALLET : 'http://192.168.1.98:3030/api' + '/user/get_wallet/',
+  // GET_USER : 'http://192.168.1.98:3030/api' + '/user/get_user/',
   CLAIM_SRM : API_URL + '/user/',
   SWAP_SRM : API_URL + '/user/swap/',
   GET_USER : API_URL + '/user/get_user/',
@@ -24,34 +26,42 @@ const API = {
 
 export default class extends BaseService {
   async claimASRM(fb_id) {
-    let that = this
-    const storeUser = this.store.getState().claimASRM
-    const claimASRMRedux = this.store.getRedux('claimASRM')
-    const web3 = storeUser.web3
-    let wallet = storeUser.wallet
-    console.log('heeeeeeee', web3.currentProvider.networkVersion, web3.currentProvider.networkVersion != NetIds.production)
-    if ((web3.currentProvider.networkVersion && web3.currentProvider.networkVersion != NetIds.production)) {
-      console.log('checkkkkkkkkkkkk')
-      return false
-    } else {
-      try {
-        var message = fb_id + '.' + wallet + '.' + 'ezdefi'
-        var signature = await web3.eth.personal.sign(message, wallet)
-      } catch (error) {
-        console.log('signature')
-        return true
-      }
+    await setupWeb3()
 
+    const claimASRMRedux = this.store.getRedux('claimASRM')
+    const storeUser = this.store.getState().claimASRM
+    let that = this
+    let web3 = storeUser.web3
+    let wallet = storeUser.wallet
+
+    if ((web3.currentProvider.networkVersion && web3.currentProvider.networkVersion != NetIds.production) ||
+      (web3.currentProvider.net_version && web3.currentProvider.net_version() && web3.currentProvider.net_version() != NetIds.production)
+    ) {
+      return false
+    }
+
+    console.log(web3)
+
+    try {
+      var message = fb_id + '.' + wallet + '.' + 'ezdefi'
+      console.log(message)
+      var signature = await web3.eth.personal.sign(message, wallet)
+    } catch (e) {
+      return true
+    }
+
+      console.log('@@@',signature)
       try {
+        console.log('try server')
         let response = await axios.post(API.CLAIM_SRM, {
           message: message,
           signature: signature,
         })
         that.dispatch(claimASRMRedux.actions.serverResponse_update(response.data))
       } catch (error) {
+        console.log('server', error)
         that.dispatch(claimASRMRedux.actions.serverResponse_update(error))
       }
-    }
   }
 // 6VTiGtHw67jJxnftBMbmnE5g8jsGJhYfXm55csfWmS5W
   async swapSRM(amount, address, wallet) {
@@ -109,19 +119,19 @@ export default class extends BaseService {
   }
 
   getUser(fb_id) {
+    console.log('FB ID', fb_id)
     return axios.get(API.GET_USER + fb_id)
   }
 
   async asrmBalance() {
     let that = this
-    const web3 = new Web3(window.ethereum)
+    const storeUser = this.store.getState().claimASRM
+    let web3 = storeUser.web3
+    let wallet = storeUser.wallet
     const claimASRMRedux = this.store.getRedux('claimASRM')
     let contract = new web3.eth.Contract(AsrmContract.abi, process.env.ASRM_CONTRACT_ADDRESS)
-    await window.web3.eth.getAccounts(async (err, accounts) => {
-      if (err) return err
-      let balance = await contract.methods.balanceOf(accounts[0]).call({ from: accounts[0] })
-      that.dispatch(claimASRMRedux.actions.balance_update(weiToPOC(balance)))
-    })
+    let balance = await contract.methods.balanceOf(wallet).call({ from: wallet, gasPrice: '0' })
+    that.dispatch(claimASRMRedux.actions.balance_update(weiToPOC(balance)))
   }
 
   async insertInformation(name, address, phoneNumber, reward, wallet) {
@@ -166,6 +176,7 @@ export default class extends BaseService {
       if (response.data.data) {
         that.dispatch(claimASRMRedux.actions.dbWallet_update(response.data.data))
       }
+      console.log('get wallet', response)
       return response;
     } catch (error) {
       return error

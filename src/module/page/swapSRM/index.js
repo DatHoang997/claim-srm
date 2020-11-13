@@ -26,8 +26,12 @@ const swap = () => {
 
   const regexp = {
     ETH: /^0x[a-fA-F0-9]{40}$/,
-    NUM: /^[0-9]+(\.[0-9]+)?$/
+    NUM: /^\d*\.?\d*$/
   }
+
+  useEffect(() => {
+    claimAsrmService.asrmBalance()
+  })
 
   useEffect(() => {
     if (serverResponse) {
@@ -63,8 +67,8 @@ const swap = () => {
   const onChangeSRM = (e) => {
     setErr('')
     setDisableSubmit(false)
-    setAsrmAmount(e.target.value)
     if(regexp.NUM.test(e.target.value)) {
+      setAsrmAmount(e.target.value)
       setSrmAmount(thousands(bigDecimal.multiply(e.target.value, 0.001), 7))
     }
     if(e.target.value == '') {

@@ -1,5 +1,5 @@
 import store from '@/store'
-
+import {NetIds} from "../constant";
 import {USER_ROLE} from '@/constant'
 import {api_request} from './'
 import {CONTRACTS} from '@/constant'
@@ -10,9 +10,10 @@ export const setupWeb3 = async (callback = null) => {
   const claimASRMRedux = store.getRedux('claimASRM')
   let isRequest = false
   let isLoggedIn = false
-  const web3 = new Web3(window.ethereum)
-  await web3.eth.requestAccounts(async (err, accounts) => {
-    console.log(accounts)
+  const web3 = new Web3(window.ethereum);
+
+  await window.web3.eth.getAccounts(async (err, accounts) => {
+    await window.ethereum.enable();
     if (err) return
     if (accounts.length > 0) {
       // detect account switch
@@ -25,10 +26,19 @@ export const setupWeb3 = async (callback = null) => {
     } else {
       if (!isRequest) {
         isRequest = true
-        await window.ethereum.enable()
+        try {
+          await window.ethereum.enable()
+          ethereum.enable()
+        } catch (error) {
+          console.log("error",error)
+        }
       }
     }
   })
+  console.log(web3.currentProvider.networkVersion, web3.currentProvider.networkVersion == NetIds.production)
+  if(web3.currentProvider.networkVersion != NetIds.production) {
+    // setupWeb3()
+  }
 }
 
 // export const loginEzdefi = (callback) => {

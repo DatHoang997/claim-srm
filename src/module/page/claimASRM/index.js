@@ -145,7 +145,7 @@ const bounty = () => {
       setDisableSubmit(false)
     }
     if (response == false) {
-      setWalletErr('You must choose Nexty network to claim bounty')
+      setWalletErr('You must choose ezDeFi network to claim bounty')
     }
   }
 

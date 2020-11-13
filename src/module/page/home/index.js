@@ -14,20 +14,11 @@ import LuckyWheel from '../../../components/LuckyWheel'
 const {TabPane} = Tabs;
 
 const home = () => {
-  const wallet = useSelector(state => state.claimASRM.wallet)
-        // dbWallet = useSelector(state => state.claimASRM.dbWallet)
-
-  const claimAsrmService = new ClaimAsrmService()
-
   useEffect(() => {
     if (window.ethereum) {
       setupWeb3()
     }
-    if (!wallet) {
-      claimAsrmService.getWallet(wallet)
-      claimAsrmService.asrmBalance()
-    }
-  }, [wallet])
+  })
 
   return (
     <StandardPage>
@@ -43,11 +34,6 @@ const home = () => {
           <TabPane tab='Chuyển SRM' key="2">
             <Swap/>
           </TabPane>
-          {/* { dbWallet &&
-            <TabPane tab='Thông tin nhận thưởng' key="3">
-              <Form/>
-            </TabPane>
-          } */}
         </Tabs>
       </div>
     </StandardPage>
