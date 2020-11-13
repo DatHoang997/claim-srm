@@ -93,7 +93,7 @@ const bounty = () => {
         <div>
           <p>Bạn chưa đủ điều kiện tham gia vì một trong những lý do sau:</p>
           <p>- Chương trình chỉ áp dụng cho người mới sử dụng ứng dụng ezDeFi</p>
-          <p>- Chương trình chỉ áp dụng sau khi bạn đã comment và tag đủ 05 người bạn trên fanpgage</p>
+          <p>- Chương trình chỉ áp dụng sau khi bạn đã comment và tag đủ 05 người bạn trên fanpage</p>
           <p>- Có gián đoạn xảy ra khi bạn tham gia chương trình</p>
           <p>Vui lòng gỡ ứng dụng và click và đường link chúng tôi đã gửi cho bạn qua Messenger</p>
         </div>

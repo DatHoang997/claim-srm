@@ -82,22 +82,19 @@ const LuckyWheel = (props) => {
     let prize = response.data.prize;
     setPrize(prize)
     let segmentIndex = segments.findIndex((segment) => segment.text === prize);
-    wheel.animation.stopAngle = (segmentIndex) ? wheel.getRandomForSegment(segmentIndex + 1) : wheel.getRandomForSegment(3);
+    wheel.animation.stopAngle = (segmentIndex < 0) ? wheel.getRandomForSegment(3) : wheel.getRandomForSegment(segmentIndex + 1);
     wheel.startAnimation();
   }
 
   const shareOnFB = () => {
-    FB.ui({
-      method: 'share',
-      href: `http://api-bounty.ezdefi.com//ref/${props.user.fb_id}`,
-    }, function(response){
-      if(response === undefined) {
-        openNotification('Chia sẻ liên kết thất bại. Vui lòng thử lại', 'error')
-      } else {
-        openNotification('Chia sẻ liên kết thành công. Bạn sẽ được thêm lượt quay sau khi bạn bè click vào liên hết mà bạn chia sẻ', 'info')
+    window.ReactNativeWebView && window.ReactNativeWebView.postMessage(JSON.stringify(
+      {
+        type: 'SHARE_BOUNTY',
+        payload: {
+          value: `Tham gia chương trình tặng 300aSRM và cơ hội trúng iPhone cực hot tại đây http://api-bounty.ezdefi.com/ref/${props.user.fb_id}`,
+        }
       }
-      console.log('share response', response);
-    });
+    ));
   }
 
   const onHideModal = () => {
