@@ -141,6 +141,11 @@ const LuckyWheel = (props) => {
     cursor: 'pointer',
   }
 
+  const shareButtonStyle = {
+    paddingRight: '25px',
+    paddingLeft: '25px'
+  }
+
   return(
     <div>
       <div id="lucky-wheel" style={luckyWheelStyle}>
@@ -159,8 +164,8 @@ const LuckyWheel = (props) => {
         :
           <div>
             <p className="margin-top-md">Bạn đã hết lượt quay. Click vào button phía dưới để gửi link chia sẻ tới bạn bè. Bạn sẽ được cộng lượt quay sau khi bạn bè click vào link.</p>
-            <button className="btn-submit margin-top-md" onClick={shareOnFB}>
-              <span>Chia sẻ liên kết</span>
+            <button style={shareButtonStyle} className="btn-submit margin-top-md" onClick={shareOnFB}>
+              <span>Chia sẻ để thêm lượt quay</span>
             </button>
           </div>
         }
